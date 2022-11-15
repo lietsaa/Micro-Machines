@@ -8,36 +8,32 @@ In each meeting, you are required to discuss:
 4. Deviations and changes to the project plan, if any
 
 
-# Meeting dd.mm.2021 HH::MM
+# Meeting 15.11.2022 16:00
 
 **Participants**: 
-1. Member 1
-2. Member 2
+1. Heikki Penttinen
+2. Alex Lietsala
 3. Member 3
 4. Member 4 
 
 ## Summary of works
-1. Member 1 
+1. Heikki Penttinen 
    
-   Implementing the class XX. Tested the class XX. 
-   Results are in `tests/<class-xx-tests>`. Resolved the identified problems.
+   Implementing the classes Car, Item, Banana, and Tile. No testing yet.
 
-2. Member 2
-
-   Same as above
-
-3. ...
+2. Alex Lietsala
+   
+   Worked on trying to get SFML library to work, so far unsuccessful. Will try and get it working early this week so that I can start working on the class main.
+   
+3. 
 
 ## Challenges
 
-1. The integration of UI with the monsters requires an abstract interface.
-2. ...
+1. Challenge is working with the SFML library
 
 ## Actions
-1. Member 1 is going to look into defining an abstract interface for monsters 
-   to enable easy UI integration.
-2. Member 2 is going to work with Member 1 to use abstract interface in derived 
-   monster classes.
+1. Heikki Penttinen is going to implement the 2DBox physics and positioning. 
+2. Alex Lietsala is going to look into getting SFML to work, and get the basics of class main ready.
 3. Member 2 is going to test the interface.
 4. Member 3 is going to use ...
 
@@ -45,7 +41,7 @@ In each meeting, you are required to discuss:
 > your group members and advisor can follow the progress.
 
 ## Project status 
-Short summary of current project status. 
+No compiling code, 4 classes almost ready
 
 ### TODOs
 1. Member 1: Write an action.
