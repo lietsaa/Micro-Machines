@@ -13,7 +13,7 @@ In each meeting, you are required to discuss:
 **Participants**: 
 1. Heikki Penttinen
 2. Alex Lietsala
-3. Member 3
+3. Jussi Lehtonen
 4. Member 4 
 
 ## Summary of works
@@ -25,7 +25,9 @@ In each meeting, you are required to discuss:
    
    Worked on trying to get SFML library to work, so far unsuccessful. Will try and get it working early this week so that I can start working on the class main.
    
-3. 
+3. Jussi Lehtonen
+
+   Implementing Map class.
 
 ## Challenges
 
@@ -34,7 +36,7 @@ In each meeting, you are required to discuss:
 ## Actions
 1. Heikki Penttinen is going to implement the 2DBox physics and positioning. 
 2. Alex Lietsala is going to look into getting SFML to work, and get the basics of class main ready.
-3. Member 2 is going to test the interface.
+3. Jussi Lehtonen is going to implement Map further and make a level file for testing.
 4. Member 3 is going to use ...
 
 > Please reflect these action decisions in your git commit messages so that 
