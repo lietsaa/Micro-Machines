@@ -35,7 +35,7 @@ int main()
     Font mario_font;
     mario_font.loadFromFile("../SuperMario256.ttf");
     Texture t0;
-    t0.loadFromFile("../start.jpeg");
+    t0.loadFromFile("../start.png");
     t0.setSmooth(true);
     Sprite sStart(t0);
 
@@ -530,7 +530,7 @@ int main()
     for(int i=0;i<N;i++)
     {
         car[i].move();
-        cout << car[0].x << "x" << car[0].y << "y" << "\n";
+        //cout << car[0].x << "x" << car[0].y << "y" << "\n";
     } 
 	
     ////drawing the background and cars///////
