@@ -212,8 +212,8 @@ int main()
     int counter=0;
     int counter2=0;
 
-    int lapCounter=1;
-    int lapCounter2=1;
+    int lapCounter=0;
+    int lapCounter2=0;
 
     int totalLaps = 3;
 
@@ -605,7 +605,7 @@ int main()
 
     ///lap counter/////
     ss1.str("");
-    ss1<<lapCounter<<"/3";
+    ss1<<lapCounter + 1<<"/3";
     laps.setString(ss1.str());
     app.draw(laps);
     ///lap counter/////
@@ -704,7 +704,7 @@ int main()
 
     ///lap counter/////
     ss2.str("");
-    ss2<<lapCounter2<<"/3";
+    ss2<<lapCounter2 + 1<<"/3";
     laps.setString(ss2.str());
     app.draw(laps);
     ///lap counter/////
@@ -761,8 +761,8 @@ int main()
                 coin[i].used = 0;
             };
 
-            lapCounter=1;
-            lapCounter2=1;
+            lapCounter=0;
+            lapCounter2=0;
             clock.restart();
             s=0;
             g=0;
