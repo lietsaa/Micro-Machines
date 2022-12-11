@@ -93,7 +93,7 @@ int main()
 
     //the textures being called 
     Texture t1, t2, t3, t4;
-    t1.loadFromFile("../track.jpg");
+    t1.loadFromFile("../track.png");
     t2.loadFromFile("../carkong.png");
     t3.loadFromFile("../coin.png");
     t4.loadFromFile("../carkong.png");
@@ -590,6 +590,12 @@ int main()
         sCar2.setColor(colors[i]);
         app.draw(sCar2);
     }
+
+    //coins car 2
+    if (sCar2.getGlobalBounds().intersects(sCoin.getGlobalBounds()))
+    {
+        car[1].speed = 0;
+    };
 
     //////clock///////
     
