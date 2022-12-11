@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>
@@ -490,3 +491,11 @@ int main()
 
 
 
+=======
+#include <iostream>
+
+int main() {
+    std::cout << "hello world!";
+    return 0;
+}
+>>>>>>> a56c9983763b52ae6b4336eb92b5573f8c79035f
