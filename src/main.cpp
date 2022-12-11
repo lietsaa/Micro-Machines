@@ -214,6 +214,14 @@ int main()
 
     int totalLaps = 3;
 
+    string firstTrackCompletion1 = "";
+    string firstTrackCompletion2 = "";
+    string secondTrackCompletion1 = "";
+    string secondTrackCompletion2 = "";
+    string nextLine = "\n";
+
+    int currentTrack = 1;
+
     ///the main window that is opened up when you start the game///
     Event e;
     while (app.isOpen()) 
@@ -252,7 +260,7 @@ int main()
 	
 	if (car[0].x>320) offsetX = car[0].x-320;
     if (car[0].y>240) offsetY = car[0].y-240;
-
+    
     //bounds car 1
     if (car[0].x>3000 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45; 
     else if (car[0].x>3000 && car[0].speed<0) car[0].speed = 5, car[0].angle = 225;
@@ -262,7 +270,8 @@ int main()
     else if (car[0].y>4000 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
     if (car[0].y <= 40 && car[0].speed>0) car[0].speed = -5, car[0].angle = 315; 
     else if (car[0].y <= 40 && car[0].speed<0) car[0].speed = 5, car[0].angle = 135;
-
+    if (currentTrack == 1)
+    {
     //bounds car 1 inside level
     //corners
     if (car[0].x>2200 && car[0].y<650 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
@@ -308,7 +317,7 @@ int main()
     //down and left
     if (car[0].x>360 && car[0].x<510 && car[0].y>2160 && car[0].y<2660 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
     else if (car[0].x>360 && car[0].x<510 && car[0].y>2160 && car[0].y<2660 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
-    
+    }
     //coins car 1
     for (int i = 0; i < X; i++)
     {
@@ -323,6 +332,7 @@ int main()
         X -= 1;
       };
     };
+    
     
     ///checkpoints car 1///
     if (car[0].y <= 2230 && counter == 0) // test
@@ -347,6 +357,25 @@ int main()
         lapCounter += 1;
     }// test
      ///checkpoints car 1///
+    if (currentTrack == 2) 
+    {
+    
+    //up and right
+    if (car[0].x>1150 && car[0].x<2000 && car[0].y>1100 && car[0].y<3230 && car[0].speed>0) car[0].speed = 0, car[0].angle = 135;
+    else if (car[0].x>1150 && car[0].x<2000 && car[0].y>1100 && car[0].y<3230 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
+    //down and left
+    if (car[0].x>1130 && car[0].x<1980 && car[0].y>1080 && car[0].y<3250 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
+    else if (car[0].x>1130 && car[0].x<1980 && car[0].y>1080 && car[0].y<3250 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
+    
+    //up and right
+    if (car[0].x>950 && car[0].x<2200 && car[0].y>950 && car[0].y<1700 && car[0].speed>0) car[0].speed = 0, car[0].angle = 135;
+    else if (car[0].x>950 && car[0].x<2200 && car[0].y>950 && car[0].y<1700 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
+    //down and left
+    if (car[0].x>900 && car[0].x<2180 && car[0].y>1000 && car[0].y<1750 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
+    else if (car[0].x>900 && car[0].x<2180 && car[0].y>1000 && car[0].y<1750 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
+    }
+
+    
 
     
 
@@ -379,6 +408,8 @@ int main()
     if (car[1].x>320) offsetX2 = car[1].x-320;
     if (car[1].y>240) offsetY2 = car[1].y-240;
 
+    
+
     //bounds car 2
     if (car[1].x>3000 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45; 
     else if (car[1].x>3000 && car[1].speed<0) car[1].speed = 5, car[1].angle = 225;
@@ -388,7 +419,8 @@ int main()
     else if (car[1].y>4000 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315; 
     if (car[1].y <= 40 && car[1].speed>0) car[1].speed = -5, car[1].angle = 315;
     else if (car[1].y <= 40 && car[1].speed<0) car[1].speed = 5, car[1].angle = 135;
-
+    if (currentTrack == 1)
+    {
     //bounds car 2 inside level
     //corners
     if (car[1].x>2200 && car[1].y<650 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
@@ -434,7 +466,7 @@ int main()
     //down and left
     if (car[1].x>360 && car[1].x<510 && car[1].y>2160 && car[1].y<2660 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
     else if (car[1].x>360 && car[1].x<510 && car[1].y>2160 && car[1].y<2660 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-
+    }
     for (int i = 0; i < X; i++)
     {
       if (coin[i].x - 15 <= car[1].x && car[1].x <= coin[i].x + 15 && coin[i].y - 15 <= car[1].y && car[1].y <= coin[i].y + 15) 
@@ -473,6 +505,27 @@ int main()
         //cout << "counter: " << counter2 << "\n";
     }// test
      ///checkpoints car 2///
+
+    //track 2 bounds car 2
+    if (currentTrack == 2) 
+    {
+    
+    //up and right
+    if (car[1].x>1150 && car[1].x<2000 && car[1].y>1100 && car[1].y<3230 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
+    else if (car[1].x>1150 && car[1].x<2000 && car[1].y>1100 && car[1].y<3230 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
+    //down and left
+    if (car[1].x>1130 && car[1].x<1980 && car[1].y>1080 && car[1].y<3250 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
+    else if (car[1].x>1130 && car[1].x<1980 && car[1].y>1080 && car[1].y<3250 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
+    
+    //up and right
+    if (car[1].x>950 && car[1].x<2200 && car[1].y>950 && car[1].y<1700 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
+    else if (car[1].x>950 && car[1].x<2200 && car[1].y>950 && car[1].y<1700 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
+    //down and left
+    if (car[1].x>900 && car[1].x<2180 && car[1].y>1000 && car[1].y<1750 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
+    else if (car[1].x>900 && car[1].x<2180 && car[1].y>1000 && car[1].y<1750 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
+    }
+
+    
 
     for(int i=0;i<N;i++)
     {
@@ -558,12 +611,17 @@ int main()
 
     ///win/////
     ssW.str("");
-    if (lapCounter == 3) {
+    if (lapCounter == totalLaps) {
     //ssW<<"win"<< "\n" << m << ":" <<s;
     const std::string lastString = stringText1;
     ssW<<"win"<< "\n" << lastString;
     win.setString(ssW.str());
     app.draw(win);
+    if (currentTrack == 1) {
+        firstTrackCompletion1 = lastString;
+      } else if (currentTrack == 2) {
+        secondTrackCompletion1 = lastString;
+      }
     stop1 = true;
     }
     ///win/////
@@ -651,13 +709,19 @@ int main()
 
     ///win/////
     ssW.str("");
-    if (lapCounter2 == 3) {
+    if (lapCounter2 == totalLaps) {
       const std::string lastString2 = stringText2;
       ssW<<"win"<< "\n" << lastString2;
       //ssW<<"win"<< "\n" << m << ":" <<s;
     
       win.setString(ssW.str());
       app.draw(win);
+      if (currentTrack == 1) {
+        firstTrackCompletion2 = lastString2;
+      } else if (currentTrack == 2) {
+        secondTrackCompletion2 = lastString2;
+      }
+
       stop2 = true;
     }
 
@@ -665,8 +729,53 @@ int main()
     
     ///win/////
 
+    //change track
+    if ((stop1 && (mode == 1)) || (stop1 && stop2)) {
+        if (currentTrack == 1) {
+            stop1 = false;
+            stop2 = false;
+            t1.loadFromFile("../track2.jpg");
+            counter=0;
+            counter2=0;
+
+            lapCounter=1;
+            lapCounter2=1;
+            clock.restart();
+            s=0;
+            g=0;
+            m=0;
+            currentTrack = 2;
+
+
+        } else {
+            if (currentTrack == 2) {
+                app.setView(app.getDefaultView());
+                app.clear(Color::Black);
+                app.draw(sStart);
+
+                Text winText1("Player 1 times: " + nextLine +  firstTrackCompletion1 + nextLine + secondTrackCompletion1, mario_font);
+                winText1.setPosition(75,100);
+                winText1.setCharacterSize(50);
+                winText1.setColor(Color::Red);
+
+                app.draw(winText1);
+                if (mode == 2) {
+                    Text winText2("Player 2 times:" + nextLine + firstTrackCompletion2 + nextLine + secondTrackCompletion2, mario_font);
+                    winText2.setPosition(75,325);
+                    winText2.setCharacterSize(50);
+                    winText2.setColor(Color::Yellow);
+
+                    app.draw(winText2);
+                }
+                
+                
+            }
+        }
+    }
+
     app.display();
     }
+    
 
     return 0;
 }
