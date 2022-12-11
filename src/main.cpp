@@ -2,8 +2,6 @@
 #include <cmath>
 #include <iostream>
 #include <sstream>
-#include <list>
-#include <vector>
 using namespace sf;
 using namespace std;
 
@@ -25,17 +23,77 @@ struct Coin
   float x,y,used;
 };
 
-
-
 int main() 
 {
-    //setting up the window and the framerate
+    // START MENU!!!!!!!!!!!!!!!!
+    // Create the window
+    //sf::RenderWindow window(sf::VideoMode(640, 480), "Starting Screen");
     RenderWindow app(VideoMode(640, 480), "Virtual Machines");
     app.setFramerateLimit(60);
+    app.clear(Color::Black);
+    // Create the text
+    Font mario_font;
+    mario_font.loadFromFile("../SuperMario256.ttf");
+    Texture t0;
+    t0.loadFromFile("../start.jpg");
+    t0.setSmooth(true);
+    Sprite sStart(t0);
+
+    Text menuText1("1 player", mario_font);
+    menuText1.setPosition(175,300);
+    menuText1.setCharacterSize(50);
+    menuText1.setColor(Color::Yellow);
+
+    Text menuText2("2 players", mario_font);
+    menuText2.setPosition(175,350);
+    menuText2.setCharacterSize(50);
+    menuText2.setColor(Color::White);
+
+    // Main loop
+    bool start = false;
+    int mode = 1;
+    while (app.isOpen() && !start)
+    {
+        // Handle events
+        sf::Event event;
+        while (app.pollEvent(event) && !start)
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                // Close the window
+                app.close();
+            }
+            else if (Keyboard::isKeyPressed(Keyboard::Up))
+            {
+                menuText1.setColor(Color::Yellow);
+                menuText2.setColor(Color::White);
+                mode = 1;
+
+            }
+            else if (Keyboard::isKeyPressed(Keyboard::Down))
+            {
+                menuText1.setColor(Color::White);
+                menuText2.setColor(Color::Yellow);
+                mode = 2;
+            }
+            else if (Keyboard::isKeyPressed(Keyboard::Space))
+            {
+                start = true;
+            }
+            app.draw(sStart);
+            app.draw(menuText1);
+            app.draw(menuText2);
+            app.display();
+        }
+    }
+            //END MENU!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //setting up the window and the framerate
+    //RenderWindow app(VideoMode(640, 480), "Virtual Machines");
+    //app.setFramerateLimit(60);
 
     //the textures being called 
     Texture t1, t2, t3, t4;
-    t1.loadFromFile("../track.png");
+    t1.loadFromFile("../track.jpg");
     t2.loadFromFile("../carkong.png");
     t3.loadFromFile("../coin.png");
     t4.loadFromFile("../carkong.png");
@@ -52,10 +110,15 @@ int main()
 
     //setting up the split screen and their names
     View view1, view2; //split
-    view1.setViewport(FloatRect(0, 0, 0.5f, 1.0f)); //split
+    //view1.setViewport(FloatRect(0, 0, 0.5f, 1.0f)); //split
     //view1.setSize(1000/2, 480); //split
+    if (mode == 2) {
+    view1.setViewport(FloatRect(0, 0, 0.5f, 1.0f)); //split
     view2.setViewport(FloatRect(0.5f, 0, 0.5f, 1.0f)); //split
-    //view2.setSize(1000/2, 480); //split
+    } else {
+        view1.setViewport(FloatRect(0, 0, 1.0f, 1.0f)); //split
+    }
+        //view2.setSize(1000/2, 480); //split
 
     //////clock///////
     srand(time(NULL));
@@ -65,14 +128,18 @@ int main()
     int s=0;
     int g=0;
     int m=0;
+    bool stop1 = false;
+    bool stop2 = false;
  
-    Font mario_font;
-    mario_font.loadFromFile("../SuperMario256.ttf");
+    //Font mario_font;
+    //mario_font.loadFromFile("/home/jussi/cpp/src/SuperMario256.ttf");
  
     Text text("", mario_font);
     text.setPosition(7,0);
     text.setCharacterSize(50);
     text.setColor(Color::Yellow);
+    std::string stringText1 = "";
+    string stringText2 = "";
     //////clock///////
 
     /// laps ///
@@ -98,7 +165,7 @@ int main()
     /// you win ///
 
     //number of cars
-    const int N=2;  
+    const int N=mode;  
     Car car[N];
     
     //the cars speed and x,y coordinates
@@ -106,7 +173,7 @@ int main()
     {
         car[i].x=2760 + i*96;
         car[i].y=2336 + i*96;
-        car[i].speed = 7 + i;
+        car[i].speed=7 + i;
     }
 
     //number of coins
@@ -145,6 +212,8 @@ int main()
     int lapCounter=1;
     int lapCounter2=1;
 
+    int totalLaps = 3;
+
     ///the main window that is opened up when you start the game///
     Event e;
     while (app.isOpen()) 
@@ -156,8 +225,6 @@ int main()
         }
 
 	////Car 1 Movement////  
-    
-
     bool Up=0, Right=0, Down=0, Left=0;
     if (Keyboard::isKeyPressed(Keyboard::W)) Up=1;
     if (Keyboard::isKeyPressed(Keyboard::D)) Right=1;
@@ -192,12 +259,57 @@ int main()
     if (car[0].x <= 40 && car[0].speed>0) car[0].speed = -5, car[0].angle = 225; 
     else if (car[0].x <= 40 && car[0].speed<0) car[0].speed = 5, car[0].angle = 45; 
     if (car[0].y>4000 && car[0].speed>0) car[0].speed = -5, car[0].angle = 135; 
-    else if (car[0].y>4000 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315; 
+    else if (car[0].y>4000 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
     if (car[0].y <= 40 && car[0].speed>0) car[0].speed = -5, car[0].angle = 315; 
     else if (car[0].y <= 40 && car[0].speed<0) car[0].speed = 5, car[0].angle = 135;
 
+    //bounds car 1 inside level
+    //corners
+    if (car[0].x>2200 && car[0].y<650 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
+    else if (car[0].x>2200 && car[0].y<650 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
+    if (car[0].y>3450 && car[0].x<1450 && car[0].speed>0) car[0].speed = 0, car[0].angle = 135; 
+    else if (car[0].y>3450 && car[0].x<1450 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
+
+    //long thicc square
+    //up and right
+    if (car[0].x>480 && car[0].x<830 && car[0].y>620 && car[0].y<2390 && car[0].speed>0) car[0].speed = 0, car[0].angle = 135;
+    else if (car[0].x>480 && car[0].x<830 && car[0].y>620 && car[0].y<2390 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
+    //down and left
+    if (car[0].x>460 && car[0].x<810 && car[0].y>640 && car[0].y<2410 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
+    else if (car[0].x>460 && car[0].x<810 && car[0].y>640 && car[0].y<2410 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
+
+    //thicc horizontal square
+    //up and right
+    if (car[0].x>800 && car[0].x<2100 && car[0].y>1450 && car[0].y<2000 && car[0].speed>0) car[0].speed = 0, car[0].angle = 135;
+    else if (car[0].x>800 && car[0].x<2100 && car[0].y>1450 && car[0].y<2000 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
+    //down and left
+    if (car[0].x>800 && car[0].x<2080 && car[0].y>1470 && car[0].y<2050 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
+    else if (car[0].x>800 && car[0].x<2080 && car[0].y>1470 && car[0].y<2050 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
+
+    //long slim square
+    //up and right
+    if (car[0].x>2220 && car[0].x<2500 && car[0].y>1630 && car[0].y<3200 && car[0].speed>0) car[0].speed = 0, car[0].angle = 135;
+    else if (car[0].x>2220 && car[0].x<2500 && car[0].y>1630 && car[0].y<3200 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
+    //down and left
+    if (car[0].x>2200 && car[0].x<2480 && car[0].y>1650 && car[0].y<3250 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
+    else if (car[0].x>2200 && car[0].x<2480 && car[0].y>1650 && car[0].y<3250 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
+
+    //up and right
+    if (car[0].x>2020 && car[0].x<2200 && car[0].y>1630 && car[0].y<2000 && car[0].speed>0) car[0].speed = 0, car[0].angle = 135;
+    else if (car[0].x>2020 && car[0].x<2200 && car[0].y>1630 && car[0].y<2000 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
+    //down and left
+    if (car[0].x>2000 && car[0].x<2180 && car[0].y>1650 && car[0].y<2050 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
+    else if (car[0].x>2000 && car[0].x<2180 && car[0].y>1650 && car[0].y<2050 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
+    
+    //small square
+    //up and right
+    if (car[0].x>380 && car[0].x<530 && car[0].y>2190 && car[0].y<2640 && car[0].speed>0) car[0].speed = 0, car[0].angle = 135;
+    else if (car[0].x>380 && car[0].x<530 && car[0].y>2190 && car[0].y<2640 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
+    //down and left
+    if (car[0].x>360 && car[0].x<510 && car[0].y>2160 && car[0].y<2660 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
+    else if (car[0].x>360 && car[0].x<510 && car[0].y>2160 && car[0].y<2660 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
+    
     //coins car 1
-    //if(find(coin_x))
     for (int i = 0; i < X; i++)
     {
       if (coin[i].x - 15 <= car[0].x && car[0].x <= coin[i].x + 15 && coin[i].y - 15 <= car[0].y && car[0].y <= coin[i].y + 15) 
@@ -235,6 +347,8 @@ int main()
         lapCounter += 1;
     }// test
      ///checkpoints car 1///
+
+    
 
 	////Car 2 Movement////
 	bool Up2=0, Right2=0, Down2=0, Left2=0;
@@ -274,6 +388,52 @@ int main()
     else if (car[1].y>4000 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315; 
     if (car[1].y <= 40 && car[1].speed>0) car[1].speed = -5, car[1].angle = 315;
     else if (car[1].y <= 40 && car[1].speed<0) car[1].speed = 5, car[1].angle = 135;
+
+    //bounds car 2 inside level
+    //corners
+    if (car[1].x>2200 && car[1].y<650 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
+    else if (car[1].x>2200 && car[1].y<650 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
+    if (car[1].y>3450 && car[1].x<1450 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135; 
+    else if (car[1].y>3450 && car[1].x<1450 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
+
+    //long thicc square
+    //up and right
+    if (car[1].x>480 && car[1].x<830 && car[1].y>620 && car[1].y<2390 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
+    else if (car[1].x>480 && car[1].x<830 && car[1].y>620 && car[1].y<2390 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
+    //down and left
+    if (car[1].x>460 && car[1].x<810 && car[1].y>640 && car[1].y<2410 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
+    else if (car[1].x>460 && car[1].x<810 && car[1].y>640 && car[1].y<2410 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
+
+    //thicc horizontal square
+    //up and right
+    if (car[1].x>800 && car[1].x<2100 && car[1].y>1450 && car[1].y<2000 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
+    else if (car[1].x>800 && car[1].x<2100 && car[1].y>1450 && car[1].y<2000 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
+    //down and left
+    if (car[1].x>800 && car[1].x<2080 && car[1].y>1470 && car[1].y<2050 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
+    else if (car[1].x>800 && car[1].x<2080 && car[1].y>1470 && car[1].y<2050 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
+
+    //long slim square
+    //up and right
+    if (car[1].x>2220 && car[1].x<2500 && car[1].y>1630 && car[1].y<3200 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
+    else if (car[1].x>2220 && car[1].x<2500 && car[1].y>1630 && car[1].y<3200 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
+    //down and left
+    if (car[1].x>2200 && car[1].x<2480 && car[1].y>1650 && car[1].y<3250 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
+    else if (car[1].x>2200 && car[1].x<2480 && car[1].y>1650 && car[1].y<3250 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
+
+    //up and right
+    if (car[1].x>2020 && car[1].x<2200 && car[1].y>1630 && car[1].y<2000 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
+    else if (car[1].x>2020 && car[1].x<2200 && car[1].y>1630 && car[1].y<2000 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
+    //down and left
+    if (car[1].x>2000 && car[1].x<2180 && car[1].y>1650 && car[1].y<2050 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
+    else if (car[1].x>2000 && car[1].x<2180 && car[1].y>1650 && car[1].y<2050 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
+    
+    //small square
+    //up and right
+    if (car[1].x>380 && car[1].x<530 && car[1].y>2190 && car[1].y<2640 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
+    else if (car[1].x>380 && car[1].x<530 && car[1].y>2190 && car[1].y<2640 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
+    //down and left
+    if (car[1].x>360 && car[1].x<510 && car[1].y>2160 && car[1].y<2660 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
+    else if (car[1].x>360 && car[1].x<510 && car[1].y>2160 && car[1].y<2660 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
 
     for (int i = 0; i < X; i++)
     {
@@ -344,9 +504,9 @@ int main()
         app.draw(sCar); //split
     } //split
 
-    ///////cout << "x" << car[0].x << "y" << car[0].y << "\n";
-
     //////clock///////
+    if (!stop1)
+    {
     ss.str("");
     t=clock.getElapsedTime();
     s=t.asSeconds();
@@ -382,8 +542,10 @@ int main()
         //ss<<g<<":"<<m<<":"<<s;
  
     text.setString(ss.str());
+    stringText1 = ss.str();
  
     app.draw(text);
+    }
     //////clock///////
 
 
@@ -396,13 +558,21 @@ int main()
 
     ///win/////
     ssW.str("");
-    if (lapCounter == 3) ssW<<"win"<< "\n" << m << ":" <<s;
+    if (lapCounter == 3) {
+    //ssW<<"win"<< "\n" << m << ":" <<s;
+    const std::string lastString = stringText1;
+    ssW<<"win"<< "\n" << lastString;
     win.setString(ssW.str());
     app.draw(win);
+    stop1 = true;
+    }
     ///win/////
 
     //view #2
-    app.setView(view2); //split
+    if (mode == 2) {
+        app.setView(view2); //split
+    
+    
     sBackground.setPosition(-offsetX2,-offsetY2); //split
     app.draw(sBackground); //split
 
@@ -411,6 +581,7 @@ int main()
         sCoin.setPosition(coin[i].x-offsetX2, coin[i].y-offsetY2); //split
         app.draw(sCoin); //split
     }
+    
 
     for(int i=0;i<N;i++)
     {
@@ -420,13 +591,10 @@ int main()
         app.draw(sCar2);
     }
 
-    //coins car 2
-    if (sCar2.getGlobalBounds().intersects(sCoin.getGlobalBounds())) 
-    {
-      car[1].speed = 0;
-    };
-
     //////clock///////
+    
+    if (!stop2)
+    {
     ss.str("");
     t=clock.getElapsedTime();
     s=t.asSeconds();
@@ -458,11 +626,14 @@ int main()
     {
         ss<<":"<<s;
     }
-    //ss<<g<<":"<<m<<":"<<s;
+ 
+        //ss<<g<<":"<<m<<":"<<s;
  
     text.setString(ss.str());
+    stringText2 = ss.str();
  
     app.draw(text);
+    }
     //////clock///////
 
     ///lap counter/////
@@ -474,9 +645,18 @@ int main()
 
     ///win/////
     ssW.str("");
-    if (lapCounter2 == 3) ssW<<"win"<< "\n" << m << ":" <<s;
-    win.setString(ssW.str());
-    app.draw(win);
+    if (lapCounter2 == 3) {
+      const std::string lastString2 = stringText2;
+      ssW<<"win"<< "\n" << lastString2;
+      //ssW<<"win"<< "\n" << m << ":" <<s;
+    
+      win.setString(ssW.str());
+      app.draw(win);
+      stop2 = true;
+    }
+
+    }
+    
     ///win/////
 
     app.display();
@@ -484,3 +664,4 @@ int main()
 
     return 0;
 }
+
