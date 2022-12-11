@@ -1,2 +1,3 @@
-/home/aaro/cpp-project-alex-heikki-aaro-jussi/build/CMakeFiles/rebuild_cache.dir
-/home/aaro/cpp-project-alex-heikki-aaro-jussi/build/CMakeFiles/edit_cache.dir
+/Users/Koti/Downloads/Cpp_project/build/CMakeFiles/Micro-Machines.dir
+/Users/Koti/Downloads/Cpp_project/build/CMakeFiles/edit_cache.dir
+/Users/Koti/Downloads/Cpp_project/build/CMakeFiles/rebuild_cache.dir
