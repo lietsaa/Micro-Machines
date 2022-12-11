@@ -202,7 +202,7 @@ int main()
     {
       if (coin[i].x - 15 <= car[0].x && car[0].x <= coin[i].x + 15 && coin[i].y - 15 <= car[0].y && car[0].y <= coin[i].y + 15) 
       {
-        maxSpeed += 0.1;
+        maxSpeed += 0.2;
         // Move all the elements after the coin one position to the left
         for (int n = i; n < X; n++)
         {
@@ -279,7 +279,7 @@ int main()
     {
       if (coin[i].x - 15 <= car[1].x && car[1].x <= coin[i].x + 15 && coin[i].y - 15 <= car[1].y && car[1].y <= coin[i].y + 15) 
       {
-        maxSpeed2 += 0.1;
+        maxSpeed2 += 0.2;
         // Move all the elements after the coin one position to the left
         for (int n = i; n < X; n++)
         {
@@ -484,4 +484,9 @@ int main()
 
     return 0;
 }
+
+
+
+
+
 
