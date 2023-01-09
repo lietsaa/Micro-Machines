@@ -2,6 +2,7 @@
 #include <cmath>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 using namespace sf;
 using namespace std;
 
@@ -22,6 +23,58 @@ struct Coin
 {
   float x,y,used;
 };
+
+
+struct Image_struct {
+    // Open the input file
+    std::ifstream input_file;
+    std::vector<std::string> lines;
+    sf::Image image;
+
+    sf::Image ImageFunction() 
+    {
+        input_file.open("../input.txt");
+
+        // Read in the contents of the file
+        std::string line;
+        while (std::getline(input_file, line)) {
+            lines.push_back(line);
+        }
+
+        // Determine the size of the output image
+        int width = 1024;
+        int height = 1024;
+
+        // Create the output image
+        image.create(width, height);
+
+        // Set the pixels in the image based on the input file
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                // Repeat the input image to fill the entire output image
+                char c = lines[y / (1024/24) % lines.size()][x / (1024/24) % lines[0].size()];
+                if (c == 'x') {
+                image.setPixel(x, y, sf::Color::Black);
+                } else if (c == '0') {
+                image.setPixel(x, y, sf::Color::White);
+                } else if (c == '1') {
+                image.setPixel(x, y, sf::Color::Red);
+                } else if (c == '2') {
+                image.setPixel(x, y, sf::Color::Green);
+                } else if (c == '3') {
+                image.setPixel(x, y, sf::Color::Blue);
+                } else if (c == '4') {
+                image.setPixel(x, y, sf::Color::Yellow);
+            } 
+        }
+        }
+
+        // Save the image to a file
+        //image.saveToFile("road.png");
+        return image;
+    }
+};
+
 
 int main() 
 {
@@ -68,6 +121,7 @@ int main()
                 menuText1.setColor(Color::Yellow);
                 menuText2.setColor(Color::White);
                 mode = 1;
+                cout << "up" << endl;
 
             }
             else if (Keyboard::isKeyPressed(Keyboard::Down))
@@ -75,6 +129,7 @@ int main()
                 menuText1.setColor(Color::White);
                 menuText2.setColor(Color::Yellow);
                 mode = 2;
+                cout << "down" << endl;
             }
             else if (Keyboard::isKeyPressed(Keyboard::Space))
             {
@@ -90,10 +145,12 @@ int main()
     //setting up the window and the framerate
     //RenderWindow app(VideoMode(640, 480), "Virtual Machines");
     //app.setFramerateLimit(60);
-
+    Image_struct image_struct1;
+    image_struct1.ImageFunction();
     //the textures being called 
     Texture t1, t2, t3, t4, t5;
-    t1.loadFromFile("../track.png");
+    //t1.loadFromFile("../track.png");
+    t1.loadFromImage(image_struct1.ImageFunction());
     t2.loadFromFile("../carkong.png");
     t3.loadFromFile("../coin.png");
     t4.loadFromFile("../luigiKart.png");
@@ -107,7 +164,7 @@ int main()
 
     //naming the background image and the car
     Sprite sBackground(t1), sCar(t2), sCoin(t3), sCar2(t4), sGrass(t5);
-    sBackground.scale(3,4);
+    sBackground.scale(3,3);
     sCar.setOrigin(22, 22);
     sCar2.setOrigin(22, 22);
 
