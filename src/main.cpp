@@ -76,7 +76,6 @@ struct Image_struct {
     }
 };
 
-
 struct Tiles {
     vector<int> x;
     vector<int> x_y;
@@ -581,64 +580,6 @@ int main()
     if (car[1].y>240) offsetY2 = car[1].y-240;
 
     
-
-    //bounds car 2
-    if (car[1].x>3000 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45; 
-    else if (car[1].x>3000 && car[1].speed<0) car[1].speed = 5, car[1].angle = 225;
-    if (car[1].x <= 40 && car[1].speed>0) car[1].speed = -5, car[1].angle = 225; 
-    else if (car[1].x <= 40 && car[1].speed<0) car[1].speed = 5, car[1].angle = 45; 
-    if (car[1].y>4000 && car[1].speed>0) car[1].speed = -5, car[1].angle = 135; 
-    else if (car[1].y>4000 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315; 
-    if (car[1].y <= 40 && car[1].speed>0) car[1].speed = -5, car[1].angle = 315;
-    else if (car[1].y <= 40 && car[1].speed<0) car[1].speed = 5, car[1].angle = 135;
-    if (currentTrack == 1)
-    {
-    //bounds car 2 inside level
-    //corners
-    if (car[1].x>2200 && car[1].y<650 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
-    else if (car[1].x>2200 && car[1].y<650 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-    if (car[1].y>3450 && car[1].x<1450 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135; 
-    else if (car[1].y>3450 && car[1].x<1450 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
-
-    //long thicc square
-    //up and right
-    if (car[1].x>480 && car[1].x<830 && car[1].y>620 && car[1].y<2390 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
-    else if (car[1].x>480 && car[1].x<830 && car[1].y>620 && car[1].y<2390 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
-    //down and left
-    if (car[1].x>460 && car[1].x<810 && car[1].y>640 && car[1].y<2410 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
-    else if (car[1].x>460 && car[1].x<810 && car[1].y>640 && car[1].y<2410 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-
-    //thicc horizontal square
-    //up and right
-    if (car[1].x>800 && car[1].x<2100 && car[1].y>1450 && car[1].y<2000 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
-    else if (car[1].x>800 && car[1].x<2100 && car[1].y>1450 && car[1].y<2000 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
-    //down and left
-    if (car[1].x>800 && car[1].x<2080 && car[1].y>1470 && car[1].y<2050 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
-    else if (car[1].x>800 && car[1].x<2080 && car[1].y>1470 && car[1].y<2050 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-
-    //long slim square
-    //up and right
-    if (car[1].x>2220 && car[1].x<2500 && car[1].y>1630 && car[1].y<3200 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
-    else if (car[1].x>2220 && car[1].x<2500 && car[1].y>1630 && car[1].y<3200 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
-    //down and left
-    if (car[1].x>2200 && car[1].x<2480 && car[1].y>1650 && car[1].y<3250 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
-    else if (car[1].x>2200 && car[1].x<2480 && car[1].y>1650 && car[1].y<3250 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-
-    //up and right
-    if (car[1].x>2020 && car[1].x<2200 && car[1].y>1630 && car[1].y<2000 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
-    else if (car[1].x>2020 && car[1].x<2200 && car[1].y>1630 && car[1].y<2000 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
-    //down and left
-    if (car[1].x>2000 && car[1].x<2180 && car[1].y>1650 && car[1].y<2050 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
-    else if (car[1].x>2000 && car[1].x<2180 && car[1].y>1650 && car[1].y<2050 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-    
-    //small square
-    //up and right
-    if (car[1].x>380 && car[1].x<530 && car[1].y>2190 && car[1].y<2640 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
-    else if (car[1].x>380 && car[1].x<530 && car[1].y>2190 && car[1].y<2640 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
-    //down and left
-    if (car[1].x>360 && car[1].x<510 && car[1].y>2160 && car[1].y<2660 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
-    else if (car[1].x>360 && car[1].x<510 && car[1].y>2160 && car[1].y<2660 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-    }
     for (int i = 0; i < X; i++)
     {
       if (coin[i].x <= car[1].x && car[1].x <= coin[i].x + 30 && coin[i].y <= car[1].y && car[1].y <= coin[i].y + 30) 
@@ -678,25 +619,55 @@ int main()
     }// test
      ///checkpoints car 2///
 
-    //track 2 bounds car 2
-    if (currentTrack == 2) 
-    {
-    
-    //up and right
-    if (car[1].x>1150 && car[1].x<2000 && car[1].y>1100 && car[1].y<3230 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
-    else if (car[1].x>1150 && car[1].x<2000 && car[1].y>1100 && car[1].y<3230 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
-    //down and left
-    if (car[1].x>1130 && car[1].x<1980 && car[1].y>1080 && car[1].y<3250 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
-    else if (car[1].x>1130 && car[1].x<1980 && car[1].y>1080 && car[1].y<3250 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-    
-    //up and right
-    if (car[1].x>950 && car[1].x<2200 && car[1].y>950 && car[1].y<1700 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
-    else if (car[1].x>950 && car[1].x<2200 && car[1].y>950 && car[1].y<1700 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
-    //down and left
-    if (car[1].x>900 && car[1].x<2180 && car[1].y>1000 && car[1].y<1750 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
-    else if (car[1].x>900 && car[1].x<2180 && car[1].y>1000 && car[1].y<1750 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-    }
+    //the gravel x y coordinates
 
+    for (int i = 0; i<Z; i++)
+    {
+      if (gravel_x[i] <= car[1].x && car[1].x <= gravel_x[i] + 125 && gravel_y[i] <= car[1].y && car[1].y <= gravel_y[i] + 125) 
+      {
+        car[1].speed = car[1].speed*0.5;
+        
+      }
+    };
+
+    //the mud x y coordinates
+
+
+    for (int i = 0; i<R; i++)
+    {
+      if (mud_x[i] <= car[1].x && car[1].x <= mud_x[i] + 125 && mud_y[i] <= car[1].y && car[1].y <= mud_y[i] + 125) 
+      {
+        car[1].speed = car[1].speed*0.2;
+      }
+    };
+
+    //the walls x y coordinates
+
+    int wall1 = 0;
+
+    for (int i = 0; i<L; i++)
+    {
+      if (walls_x[i] <= car[1].x + sin(car[1].angle) * car[1].speed && car[1].x + sin(car[1].angle) * car[1].speed <= walls_x[i] + 125 && walls_y[i] <= car[1].y - cos(car[1].angle) * car[1].speed && car[1].y - cos(car[1].angle) * car[1].speed <= walls_y[i] + 125)
+      {
+        wall1 = 1;
+      }
+      
+    };
+
+
+    //the speed x y coordinates
+
+
+    for (int i = 0; i<S; i++)
+    {
+      if (speed_x[i] <= car[1].x && car[1].x <= speed_x[i] + 125 && speed_y[i] <= car[1].y && car[1].y <= speed_y[i] + 125) 
+      {
+        car[1].speed = car[1].speed*2;
+        
+      }
+    };
+
+    if (wall1 == 0) car[1].move();
     
     /*
     for(int i=0;i<N;i++)
