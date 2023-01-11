@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <vector>
 using namespace sf;
 using namespace std;
 //test
@@ -28,16 +29,16 @@ struct Coin
 
 struct Image_struct {
     // Open the input file
-    std::ifstream input_file;
-    std::vector<std::string> lines;
-    sf::Image image;
+    ifstream input_file;
+    vector<string> lines;
+    Image image;
 
-    sf::Image ImageFunction() 
+    Image ImageFunction() 
     {
         input_file.open("../input.txt");
 
         // Read in the contents of the file
-        std::string line;
+        string line;
         while (std::getline(input_file, line)) {
             lines.push_back(line);
         }
@@ -55,17 +56,17 @@ struct Image_struct {
                 // Repeat the input image to fill the entire output image
                 char c = lines[y / (1024/24) % lines.size()][x / (1024/24) % lines[0].size()];
                 if (c == 'x') {
-                image.setPixel(x, y, sf::Color::Black);
+                image.setPixel(x, y, Color::Black);
                 } else if (c == '0') {
-                image.setPixel(x, y, sf::Color::White);
+                image.setPixel(x, y, Color::White);
                 } else if (c == '1') {
-                image.setPixel(x, y, sf::Color::Red);
+                image.setPixel(x, y, Color::Red);
                 } else if (c == '2') {
-                image.setPixel(x, y, sf::Color::Green);
+                image.setPixel(x, y, Color::Green);
                 } else if (c == '3') {
-                image.setPixel(x, y, sf::Color::Blue);
+                image.setPixel(x, y, Color::Blue);
                 } else if (c == '4') {
-                image.setPixel(x, y, sf::Color::Yellow);
+                image.setPixel(x, y, Color::Yellow);
             } 
         }
         }
@@ -76,9 +77,128 @@ struct Image_struct {
     }
 };
 
+struct Tiles {
+    vector<int> x;
+    vector<int> x_y;
+    vector<int> zero;
+    vector<int> zero_y;
+    vector<int> one;
+    vector<int> one_y;
+    vector<int> two;
+    vector<int> two_y;
+    vector<int> three;
+    vector<int> three_y;
+    vector<int> four;
+    vector<int> four_y;
+
+    ifstream input_file;
+
+    void tiles() {
+        input_file.open("../input.txt");
+        int counter_x = 0;
+        int counter_y = 0;
+        int counter = 0;
+
+
+        char c;
+        while (input_file.get(c)) {
+            counter += 1;
+            // Check if the character is an 'x'
+            if (c == 'x') {
+            x.push_back(counter_x * 125);
+            x_y.push_back(counter_y * 125);
+            cout << "x" << endl;
+            }
+            else if (c == '0') {
+            zero.push_back(counter_x * 125);
+            zero_y.push_back(counter_y * 125);
+            cout << "0" << endl;
+            }
+            // Check if the character is a '1'
+            else if (c == '1') {
+            one.push_back(counter_x * 125);
+            one_y.push_back(counter_y * 125);
+            cout << "1" << endl;
+            }
+            // Check if the character is a '2'
+            else if (c == '2') {
+            two.push_back(counter_x * 125);
+            two_y.push_back(counter_y * 125);
+            cout << "2" << endl;
+            }
+            // Check if the character is a '3'
+            else if (c == '3') {
+            three.push_back(counter_x * 125);
+            three_y.push_back(counter_y * 125);
+            cout << "3" << endl;
+            }
+            // Check if the character is a '4'
+            else if (c == '4') {
+            four.push_back(counter_x * 125);
+            four_y.push_back(counter_y * 125);
+            cout << "4" << endl;
+            }
+            if (counter_x <= 23) {
+                counter_x += 1;
+            } else {
+                counter_x = 0;
+                counter_y += 1;
+            }
+        }
+
+        cout << "x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+        
+        for (auto q: x)
+            cout << q << endl;
+        cout << endl;
+        for (auto q: zero)
+            cout << q << endl;
+        cout << endl;
+        for (auto q: one)
+            cout << q << endl;
+        cout << endl;
+        for (auto q: two)
+            cout << q << endl;
+        cout << endl;
+        for (auto q: three)
+            cout << q << endl;
+        cout << endl;
+        for (auto q: four)
+            cout << q << endl;
+
+        cout << "y!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+        
+        for (auto q: x_y)
+            cout << q << endl;
+        cout << endl;
+        for (auto q: zero_y)
+            cout << q << endl;
+        cout << endl;
+        for (auto q: one_y)
+            cout << q << endl;
+        cout << endl;
+        for (auto q: two_y)
+            cout << q << endl;
+        cout << endl;
+        for (auto q: three_y)
+            cout << q << endl;
+        cout << endl;
+        for (auto q: four_y)
+            cout << q << endl;
+        
+        cout << counter << endl;
+
+        // Close the document
+        input_file.close();
+    }
+};
+
 
 int main() 
 {
+    Tiles tiles;
+
+    tiles.tiles();
     // START MENU!!!!!!!!!!!!!!!!
     // Create the window
     //sf::RenderWindow window(sf::VideoMode(640, 480), "Starting Screen");
@@ -252,6 +372,7 @@ int main()
         coin[i].used = 0;
     }
 
+
     //the floats and ints for the cars speed,angle and their max speed, acceleration, decceleration and their turn speed
     ///float x=300, y=300;
     float speed = 0, angle = 0;
@@ -322,63 +443,7 @@ int main()
 	if (car[0].x>320) offsetX = car[0].x-320;
     if (car[0].y>240) offsetY = car[0].y-240;
     
-    //bounds car 1
-    if (car[0].x>3000 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45; 
-    else if (car[0].x>3000 && car[0].speed<0) car[0].speed = 5, car[0].angle = 225;
-    if (car[0].x <= 40 && car[0].speed>0) car[0].speed = -5, car[0].angle = 225; 
-    else if (car[0].x <= 40 && car[0].speed<0) car[0].speed = 5, car[0].angle = 45; 
-    if (car[0].y>4000 && car[0].speed>0) car[0].speed = -5, car[0].angle = 135; 
-    else if (car[0].y>4000 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
-    if (car[0].y <= 40 && car[0].speed>0) car[0].speed = -5, car[0].angle = 315; 
-    else if (car[0].y <= 40 && car[0].speed<0) car[0].speed = 5, car[0].angle = 135;
-    if (currentTrack == 1)
-    {
-    //bounds car 1 inside level
-    //corners
-    if (car[0].x>2200 && car[0].y<650 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
-    else if (car[0].x>2200 && car[0].y<650 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
-    if (car[0].y>3450 && car[0].x<1450 && car[0].speed>0) car[0].speed = 0, car[0].angle = 135; 
-    else if (car[0].y>3450 && car[0].x<1450 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
-
-    //long thicc square
-    //up and right
-    if (car[0].x>480 && car[0].x<830 && car[0].y>620 && car[0].y<2390 && car[0].speed>0) car[0].speed = 0, car[0].angle = 135;
-    else if (car[0].x>480 && car[0].x<830 && car[0].y>620 && car[0].y<2390 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
-    //down and left
-    if (car[0].x>460 && car[0].x<810 && car[0].y>640 && car[0].y<2410 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
-    else if (car[0].x>460 && car[0].x<810 && car[0].y>640 && car[0].y<2410 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
-
-    //thicc horizontal square
-    //up and right
-    if (car[0].x>800 && car[0].x<2100 && car[0].y>1450 && car[0].y<2000 && car[0].speed>0) car[0].speed = 0, car[0].angle = 135;
-    else if (car[0].x>800 && car[0].x<2100 && car[0].y>1450 && car[0].y<2000 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
-    //down and left
-    if (car[0].x>800 && car[0].x<2080 && car[0].y>1470 && car[0].y<2050 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
-    else if (car[0].x>800 && car[0].x<2080 && car[0].y>1470 && car[0].y<2050 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
-
-    //long slim square
-    //up and right
-    if (car[0].x>2220 && car[0].x<2500 && car[0].y>1630 && car[0].y<3200 && car[0].speed>0) car[0].speed = 0, car[0].angle = 135;
-    else if (car[0].x>2220 && car[0].x<2500 && car[0].y>1630 && car[0].y<3200 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
-    //down and left
-    if (car[0].x>2200 && car[0].x<2480 && car[0].y>1650 && car[0].y<3250 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
-    else if (car[0].x>2200 && car[0].x<2480 && car[0].y>1650 && car[0].y<3250 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
-
-    //up and right
-    if (car[0].x>2020 && car[0].x<2200 && car[0].y>1630 && car[0].y<2000 && car[0].speed>0) car[0].speed = 0, car[0].angle = 135;
-    else if (car[0].x>2020 && car[0].x<2200 && car[0].y>1630 && car[0].y<2000 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
-    //down and left
-    if (car[0].x>2000 && car[0].x<2180 && car[0].y>1650 && car[0].y<2050 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
-    else if (car[0].x>2000 && car[0].x<2180 && car[0].y>1650 && car[0].y<2050 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
     
-    //small square
-    //up and right
-    if (car[0].x>380 && car[0].x<530 && car[0].y>2190 && car[0].y<2640 && car[0].speed>0) car[0].speed = 0, car[0].angle = 135;
-    else if (car[0].x>380 && car[0].x<530 && car[0].y>2190 && car[0].y<2640 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
-    //down and left
-    if (car[0].x>360 && car[0].x<510 && car[0].y>2160 && car[0].y<2660 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
-    else if (car[0].x>360 && car[0].x<510 && car[0].y>2160 && car[0].y<2660 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
-    }
     //coins car 1
     for (int i = 0; i < X; i++)
     {
@@ -417,24 +482,73 @@ int main()
         counter = 0;
         lapCounter += 1;
     }// test
-     ///checkpoints car 1///
-    if (currentTrack == 2) 
+
+
+    //the gravel x y coordinates
+    vector<int> gravel_x = tiles.zero;
+    vector<int> gravel_y = tiles.zero_y;
+
+    int Z = gravel_x.size();
+
+    for (int i = 0; i<Z; i++)
     {
+      if (gravel_x[i] <= car[0].x && car[0].x <= gravel_x[i] + 125 && gravel_y[i] <= car[0].y && car[0].y <= gravel_y[i] + 125) 
+      {
+        car[0].speed = car[0].speed*0.5;
+        
+      }
+    };
+
+    //the mud x y coordinates
+    vector<int> mud_x = tiles.two;
+    vector<int> mud_y = tiles.two_y;
     
-    //up and right
-    if (car[0].x>1150 && car[0].x<2000 && car[0].y>1100 && car[0].y<3230 && car[0].speed>0) car[0].speed = 0, car[0].angle = 135;
-    else if (car[0].x>1150 && car[0].x<2000 && car[0].y>1100 && car[0].y<3230 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
-    //down and left
-    if (car[0].x>1130 && car[0].x<1980 && car[0].y>1080 && car[0].y<3250 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
-    else if (car[0].x>1130 && car[0].x<1980 && car[0].y>1080 && car[0].y<3250 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
+    int R = mud_x.size();
+
+    for (int i = 0; i<R; i++)
+    {
+      if (mud_x[i] <= car[0].x && car[0].x <= mud_x[i] + 125 && mud_y[i] <= car[0].y && car[0].y <= mud_y[i] + 125) 
+      {
+        car[0].speed = car[0].speed*0.2;
+        
+      }
+    };
+
+    //the walls x y coordinates
+    vector<int> walls_x = tiles.x;
+    vector<int> walls_y = tiles.x_y;
     
-    //up and right
-    if (car[0].x>950 && car[0].x<2200 && car[0].y>950 && car[0].y<1700 && car[0].speed>0) car[0].speed = 0, car[0].angle = 135;
-    else if (car[0].x>950 && car[0].x<2200 && car[0].y>950 && car[0].y<1700 && car[0].speed<0) car[0].speed = 5, car[0].angle = 315;
-    //down and left
-    if (car[0].x>900 && car[0].x<2180 && car[0].y>1000 && car[0].y<1750 && car[0].speed>0) car[0].speed = -5, car[0].angle = 45;
-    else if (car[0].x>900 && car[0].x<2180 && car[0].y>1000 && car[0].y<1750 && car[0].speed<0) car[0].speed = 0, car[0].angle = 225;
-    }
+    int L = walls_x.size();
+    int wall = 0;
+
+    for (int i = 0; i<L; i++)
+    {
+      if (walls_x[i] <= car[0].x + sin(car[0].angle) * car[0].speed && car[0].x + sin(car[0].angle) * car[0].speed <= walls_x[i] + 125 && walls_y[i] <= car[0].y - cos(car[0].angle) * car[0].speed && car[0].y - cos(car[0].angle) * car[0].speed <= walls_y[i] + 125)
+      {
+        wall = 1;
+      }
+      
+    };
+
+
+    //the speed x y coordinates
+    vector<int> speed_x = tiles.three;
+    vector<int> speed_y = tiles.three_y;
+    
+    int S = speed_x.size();
+
+    for (int i = 0; i<S; i++)
+    {
+      if (speed_x[i] <= car[0].x && car[0].x <= speed_x[i] + 125 && speed_y[i] <= car[0].y && car[0].y <= speed_y[i] + 125) 
+      {
+        car[0].speed = car[0].speed*2;
+        
+      }
+    };
+
+    if (wall == 0) car[0].move();
+
+    
 
 
 	////Car 2 Movement////
@@ -467,64 +581,6 @@ int main()
     if (car[1].y>240) offsetY2 = car[1].y-240;
 
     
-
-    //bounds car 2
-    if (car[1].x>3000 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45; 
-    else if (car[1].x>3000 && car[1].speed<0) car[1].speed = 5, car[1].angle = 225;
-    if (car[1].x <= 40 && car[1].speed>0) car[1].speed = -5, car[1].angle = 225; 
-    else if (car[1].x <= 40 && car[1].speed<0) car[1].speed = 5, car[1].angle = 45; 
-    if (car[1].y>4000 && car[1].speed>0) car[1].speed = -5, car[1].angle = 135; 
-    else if (car[1].y>4000 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315; 
-    if (car[1].y <= 40 && car[1].speed>0) car[1].speed = -5, car[1].angle = 315;
-    else if (car[1].y <= 40 && car[1].speed<0) car[1].speed = 5, car[1].angle = 135;
-    if (currentTrack == 1)
-    {
-    //bounds car 2 inside level
-    //corners
-    if (car[1].x>2200 && car[1].y<650 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
-    else if (car[1].x>2200 && car[1].y<650 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-    if (car[1].y>3450 && car[1].x<1450 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135; 
-    else if (car[1].y>3450 && car[1].x<1450 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
-
-    //long thicc square
-    //up and right
-    if (car[1].x>480 && car[1].x<830 && car[1].y>620 && car[1].y<2390 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
-    else if (car[1].x>480 && car[1].x<830 && car[1].y>620 && car[1].y<2390 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
-    //down and left
-    if (car[1].x>460 && car[1].x<810 && car[1].y>640 && car[1].y<2410 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
-    else if (car[1].x>460 && car[1].x<810 && car[1].y>640 && car[1].y<2410 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-
-    //thicc horizontal square
-    //up and right
-    if (car[1].x>800 && car[1].x<2100 && car[1].y>1450 && car[1].y<2000 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
-    else if (car[1].x>800 && car[1].x<2100 && car[1].y>1450 && car[1].y<2000 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
-    //down and left
-    if (car[1].x>800 && car[1].x<2080 && car[1].y>1470 && car[1].y<2050 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
-    else if (car[1].x>800 && car[1].x<2080 && car[1].y>1470 && car[1].y<2050 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-
-    //long slim square
-    //up and right
-    if (car[1].x>2220 && car[1].x<2500 && car[1].y>1630 && car[1].y<3200 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
-    else if (car[1].x>2220 && car[1].x<2500 && car[1].y>1630 && car[1].y<3200 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
-    //down and left
-    if (car[1].x>2200 && car[1].x<2480 && car[1].y>1650 && car[1].y<3250 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
-    else if (car[1].x>2200 && car[1].x<2480 && car[1].y>1650 && car[1].y<3250 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-
-    //up and right
-    if (car[1].x>2020 && car[1].x<2200 && car[1].y>1630 && car[1].y<2000 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
-    else if (car[1].x>2020 && car[1].x<2200 && car[1].y>1630 && car[1].y<2000 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
-    //down and left
-    if (car[1].x>2000 && car[1].x<2180 && car[1].y>1650 && car[1].y<2050 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
-    else if (car[1].x>2000 && car[1].x<2180 && car[1].y>1650 && car[1].y<2050 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-    
-    //small square
-    //up and right
-    if (car[1].x>380 && car[1].x<530 && car[1].y>2190 && car[1].y<2640 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
-    else if (car[1].x>380 && car[1].x<530 && car[1].y>2190 && car[1].y<2640 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
-    //down and left
-    if (car[1].x>360 && car[1].x<510 && car[1].y>2160 && car[1].y<2660 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
-    else if (car[1].x>360 && car[1].x<510 && car[1].y>2160 && car[1].y<2660 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-    }
     for (int i = 0; i < X; i++)
     {
       if (coin[i].x <= car[1].x && car[1].x <= coin[i].x + 30 && coin[i].y <= car[1].y && car[1].y <= coin[i].y + 30) 
@@ -564,32 +620,63 @@ int main()
     }// test
      ///checkpoints car 2///
 
-    //track 2 bounds car 2
-    if (currentTrack == 2) 
+    //the gravel x y coordinates
+
+    for (int i = 0; i<Z; i++)
     {
-    
-    //up and right
-    if (car[1].x>1150 && car[1].x<2000 && car[1].y>1100 && car[1].y<3230 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
-    else if (car[1].x>1150 && car[1].x<2000 && car[1].y>1100 && car[1].y<3230 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
-    //down and left
-    if (car[1].x>1130 && car[1].x<1980 && car[1].y>1080 && car[1].y<3250 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
-    else if (car[1].x>1130 && car[1].x<1980 && car[1].y>1080 && car[1].y<3250 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-    
-    //up and right
-    if (car[1].x>950 && car[1].x<2200 && car[1].y>950 && car[1].y<1700 && car[1].speed>0) car[1].speed = 0, car[1].angle = 135;
-    else if (car[1].x>950 && car[1].x<2200 && car[1].y>950 && car[1].y<1700 && car[1].speed<0) car[1].speed = 5, car[1].angle = 315;
-    //down and left
-    if (car[1].x>900 && car[1].x<2180 && car[1].y>1000 && car[1].y<1750 && car[1].speed>0) car[1].speed = -5, car[1].angle = 45;
-    else if (car[1].x>900 && car[1].x<2180 && car[1].y>1000 && car[1].y<1750 && car[1].speed<0) car[1].speed = 0, car[1].angle = 225;
-    }
+      if (gravel_x[i] <= car[1].x && car[1].x <= gravel_x[i] + 125 && gravel_y[i] <= car[1].y && car[1].y <= gravel_y[i] + 125) 
+      {
+        car[1].speed = car[1].speed*0.5;
+        
+      }
+    };
 
-    
+    //the mud x y coordinates
 
+
+    for (int i = 0; i<R; i++)
+    {
+      if (mud_x[i] <= car[1].x && car[1].x <= mud_x[i] + 125 && mud_y[i] <= car[1].y && car[1].y <= mud_y[i] + 125) 
+      {
+        car[1].speed = car[1].speed*0.2;
+      }
+    };
+
+    //the walls x y coordinates
+
+    int wall1 = 0;
+
+    for (int i = 0; i<L; i++)
+    {
+      if (walls_x[i] <= car[1].x + sin(car[1].angle) * car[1].speed && car[1].x + sin(car[1].angle) * car[1].speed <= walls_x[i] + 125 && walls_y[i] <= car[1].y - cos(car[1].angle) * car[1].speed && car[1].y - cos(car[1].angle) * car[1].speed <= walls_y[i] + 125)
+      {
+        wall1 = 1;
+      }
+      
+    };
+
+
+    //the speed x y coordinates
+
+
+    for (int i = 0; i<S; i++)
+    {
+      if (speed_x[i] <= car[1].x && car[1].x <= speed_x[i] + 125 && speed_y[i] <= car[1].y && car[1].y <= speed_y[i] + 125) 
+      {
+        car[1].speed = car[1].speed*2;
+        
+      }
+    };
+
+    if (wall1 == 0) car[1].move();
+    
+    /*
     for(int i=0;i<N;i++)
     {
         car[i].move();
         //cout << car[0].x << "x" << car[0].y << "y" << "\n";
     } 
+    */
 	
     ////drawing the background and cars///////
     app.clear(Color::Green);
