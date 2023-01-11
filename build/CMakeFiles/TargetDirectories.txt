@@ -1,3 +1,3 @@
-/Users/Koti/Downloads/cpp/build/CMakeFiles/Micro-Machines.dir
-/Users/Koti/Downloads/cpp/build/CMakeFiles/edit_cache.dir
-/Users/Koti/Downloads/cpp/build/CMakeFiles/rebuild_cache.dir
+/home/jussi/cpp3/build/CMakeFiles/Micro-Machines.dir
+/home/jussi/cpp3/build/CMakeFiles/edit_cache.dir
+/home/jussi/cpp3/build/CMakeFiles/rebuild_cache.dir

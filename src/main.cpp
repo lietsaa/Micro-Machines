@@ -4,27 +4,12 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include "car.hpp"
+#include "car.cpp"
+#include "coin.hpp"
+#include "coin.cpp"
 using namespace sf;
 using namespace std;
-//test
-
-//the cars, takes in their coordinates(x,y),speed and the angle of the car
-struct Car
-{
-    float x,y,speed,angle;
-    Car() {speed=2; angle=0;}
-    void move()
-    {
-        x += sin(angle) * speed;
-        y -= cos(angle) * speed;    
-    }
-};
-
-//the coins location x,y
-struct Coin
-{
-  float x,y,used;
-};
 
 
 struct Image_struct {
