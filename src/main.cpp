@@ -4,169 +4,15 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
-#include "car.hpp"
 #include "car.cpp"
-#include "coin.hpp"
 #include "coin.cpp"
+#include "tile.cpp"
+#include "map.cpp"
 using namespace sf;
 using namespace std;
 
-
-struct Image_struct {
-    // Open the input file
-    ifstream input_file;
-    vector<string> lines;
-    Image image;
-
-    Image ImageFunction() 
-    {
-        input_file.open("../input.txt");
-
-        // Read in the contents of the file
-        string line;
-        while (std::getline(input_file, line)) {
-            lines.push_back(line);
-        }
-
-        // Determine the size of the output image
-        int width = 1024;
-        int height = 1024;
-
-        // Create the output image
-        image.create(width, height);
-
-        // Set the pixels in the image based on the input file
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                // Repeat the input image to fill the entire output image
-                char c = lines[y / (1024/24) % lines.size()][x / (1024/24) % lines[0].size()];
-                if (c == 'x') {
-                image.setPixel(x, y, Color::Black);
-                } else if (c == '0') {
-                image.setPixel(x, y, Color::White);
-                } else if (c == '1') {
-                image.setPixel(x, y, Color::Red);
-                } else if (c == '2') {
-                image.setPixel(x, y, Color::Green);
-                } else if (c == '3') {
-                image.setPixel(x, y, Color::Blue);
-                } else if (c == '4') {
-                image.setPixel(x, y, Color::Yellow);
-                } else if (c == '5') {
-                image.setPixel(x, y, Color::Yellow);
-                } else if (c == '6') {
-                image.setPixel(x, y, Color::Yellow);
-                } else if (c == '7') {
-                image.setPixel(x, y, Color::Yellow);
-                } 
-            }
-        }
-        // Save the image to a file
-        //image.saveToFile("road.png");
-        return image;
-    }
-};
-
-struct Tiles {
-    vector<int> x;
-    vector<int> x_y;
-    vector<int> zero;
-    vector<int> zero_y;
-    vector<int> one;
-    vector<int> one_y;
-    vector<int> two;
-    vector<int> two_y;
-    vector<int> three;
-    vector<int> three_y;
-    vector<int> four;
-    vector<int> four_y;
-    vector<int> five;
-    vector<int> five_y;
-    vector<int> six;
-    vector<int> six_y;
-    vector<int> seven;
-    vector<int> seven_y;
-
-    ifstream input_file;
-
-    void tiles() {
-        input_file.open("../input.txt");
-        int counter_x = 0;
-        int counter_y = 0;
-
-
-        char c;
-        while (input_file.get(c)) {
-
-            // Check if the character is an 'x'
-            if (c == 'x') {
-            x.push_back(counter_x * 125);
-            x_y.push_back(counter_y * 125);
-            cout << "x" << endl;
-            }
-            else if (c == '0') {
-            zero.push_back(counter_x * 125);
-            zero_y.push_back(counter_y * 125);
-            cout << "0" << endl;
-            }
-            // Check if the character is a '1'
-            else if (c == '1') {
-            one.push_back(counter_x * 125);
-            one_y.push_back(counter_y * 125);
-            cout << "1" << endl;
-            }
-            // Check if the character is a '2'
-            else if (c == '2') {
-            two.push_back(counter_x * 125);
-            two_y.push_back(counter_y * 125);
-            cout << "2" << endl;
-            }
-            // Check if the character is a '3'
-            else if (c == '3') {
-            three.push_back(counter_x * 125);
-            three_y.push_back(counter_y * 125);
-            cout << "3" << endl;
-            }
-            // Check if the character is a '4'
-            else if (c == '4') {
-            four.push_back(counter_x * 125);
-            four_y.push_back(counter_y * 125);
-            cout << "4" << endl;
-            }
-            else if (c == '5') {
-            five.push_back(counter_x * 125);
-            five_y.push_back(counter_y * 125);
-            cout << "5" << endl;
-            }
-            else if (c == '6') {
-            six.push_back(counter_x * 125);
-            six_y.push_back(counter_y * 125);
-            cout << "6" << endl;
-            }
-            else if (c == '7') {
-            seven.push_back(counter_x * 125);
-            seven_y.push_back(counter_y * 125);
-            cout << "7" << endl;
-            }
-            if (counter_x <= 23) {
-                counter_x += 1;
-            } else {
-                counter_x = 0;
-                counter_y += 1;
-            }
-        }
-
-        // Close the document
-        input_file.close();
-    }
-};
-
-
 int main() 
 {
-    Tiles tiles;
-
-    tiles.tiles();
     // START MENU!!!!!!!!!!!!!!!!
     // Create the window
     //sf::RenderWindow window(sf::VideoMode(640, 480), "Starting Screen");
@@ -234,12 +80,12 @@ int main()
     //setting up the window and the framerate
     //RenderWindow app(VideoMode(640, 480), "Virtual Machines");
     //app.setFramerateLimit(60);
-    Image_struct image_struct1;
-    image_struct1.ImageFunction();
+    Map map;
+    map.MapFunction();
     //the textures being called 
     Texture t1, t2, t3, t4, t5;
     //t1.loadFromFile("../track.png");
-    t1.loadFromImage(image_struct1.ImageFunction());
+    t1.loadFromImage(map.MapFunction());
     t2.loadFromFile("../carkong.png");
     t3.loadFromFile("../coin.png");
     t4.loadFromFile("../luigiKart.png");
@@ -312,6 +158,9 @@ int main()
     win.setCharacterSize(200);
     win.setColor(Color::Yellow);
     /// you win ///
+
+    Tiles tiles;
+    tiles.tiles();
 
     //number of cars
     const int N=mode;  
@@ -520,8 +369,6 @@ int main()
     if (wall == 0) car[0].move();
 
     
-
-
 	////Car 2 Movement////
 	bool Up2=0, Right2=0, Down2=0, Left2=0;
     if (Keyboard::isKeyPressed(Keyboard::Up)) Up2=1;
@@ -918,4 +765,3 @@ int main()
 
     return 0;
 }
-
