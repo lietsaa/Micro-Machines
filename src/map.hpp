@@ -8,5 +8,5 @@ public:
     std::vector<std::string> lines;
     sf::Image image;
 
-    sf::Image MapFunction();
+    sf::Image MapFunction(std::string filePath);
 };

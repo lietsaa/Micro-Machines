@@ -1,8 +1,8 @@
 #include "tile.hpp"
 #include <iostream>
 
-void Tiles::tiles() {
-    input_file.open("../input.txt");
+void Tiles::tiles(std::string filePath) {
+    input_file.open(filePath);
     int counter_x = 0;
     int counter_y = 0;
 

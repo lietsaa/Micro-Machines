@@ -333,8 +333,12 @@ CMakeFiles/Micro-Machines.dir/src/main.o
  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h
  /usr/include/c++/11/bits/fstream.tcc
- /home/jussi/cpp3/src/car.hpp
  /home/jussi/cpp3/src/car.cpp
- /home/jussi/cpp3/src/coin.hpp
+ /home/jussi/cpp3/src/car.hpp
  /home/jussi/cpp3/src/coin.cpp
+ /home/jussi/cpp3/src/coin.hpp
+ /home/jussi/cpp3/src/tile.cpp
+ /home/jussi/cpp3/src/tile.hpp
+ /home/jussi/cpp3/src/map.cpp
+ /home/jussi/cpp3/src/map.hpp
 
