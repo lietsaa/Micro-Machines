@@ -332,15 +332,21 @@ CMakeFiles/Micro-Machines.dir/src/main.o: ../src/main.cpp \
   /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
   /usr/include/c++/11/bits/fstream.tcc \
-  ../src/car.hpp \
   ../src/car.cpp \
+  ../src/car.hpp \
+  ../src/coin.cpp \
   ../src/coin.hpp \
-  ../src/coin.cpp
+  ../src/tile.cpp \
+  ../src/tile.hpp \
+  ../src/map.cpp \
+  ../src/map.hpp
 
 
-../src/coin.cpp:
+../src/map.hpp:
 
 ../src/coin.hpp:
+
+../src/coin.cpp:
 
 ../src/car.hpp:
 
@@ -594,6 +600,8 @@ CMakeFiles/Micro-Machines.dir/src/main.o: ../src/main.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
 
+../src/tile.cpp:
+
 /usr/include/c++/11/cmath:
 
 /usr/include/c++/11/bits/allocator.h:
@@ -607,6 +615,8 @@ CMakeFiles/Micro-Machines.dir/src/main.o: ../src/main.cpp \
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
+
+../src/map.cpp:
 
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 
@@ -831,6 +841,8 @@ CMakeFiles/Micro-Machines.dir/src/main.o: ../src/main.cpp \
 /usr/include/c++/11/ext/aligned_buffer.h:
 
 /usr/include/x86_64-linux-gnu/bits/byteswap.h:
+
+../src/tile.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
