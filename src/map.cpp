@@ -1,7 +1,7 @@
 #include "map.hpp"
 
-sf::Image Map::MapFunction() {
-    input_file.open("../input.txt");
+sf::Image Map::MapFunction(std::string filePath) {
+    input_file.open(filePath);
 
     // Read in the contents of the file
     std::string line;
@@ -31,11 +31,11 @@ sf::Image Map::MapFunction() {
             } else if (c == '3') {
                 image.setPixel(x, y, sf::Color::Blue);
             } else if (c == '4') {
-                image.setPixel(x, y, sf::Color::Yellow);
+                image.setPixel(x, y, sf::Color::Green);
             } else if (c == '5') {
-                image.setPixel(x, y, sf::Color::Yellow);
+                image.setPixel(x, y, sf::Color::Red);
             } else if (c == '6') {
-                image.setPixel(x, y, sf::Color::Yellow);
+                image.setPixel(x, y, sf::Color::Magenta);
             } else if (c == '7') {
                 image.setPixel(x, y, sf::Color::Yellow);
             }

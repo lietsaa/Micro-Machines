@@ -25,7 +25,7 @@ public:
     std::vector<int> seven_y;
     std::ifstream input_file;
 
-    void tiles();
+    void tiles(std::string filePath);
 };
 
 

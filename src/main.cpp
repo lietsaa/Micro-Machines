@@ -37,9 +37,18 @@ int main()
     menuText2.setCharacterSize(50);
     menuText2.setColor(Color::White);
 
+    Text menuText3("", mario_font);
+    menuText3.setPosition(175,400);
+    menuText3.setCharacterSize(50);
+    menuText3.setColor(Color::White);
     // Main loop
+    bool playerCountSelected = false;
     bool start = false;
     int mode = 1;
+    int menuIndex = 0;
+    int maxMenuIndex = 1;
+    bool spacePressed = false;
+    string filePath;
     while (app.isOpen() && !start)
     {
         // Handle events
@@ -53,26 +62,65 @@ int main()
             }
             else if (Keyboard::isKeyPressed(Keyboard::Up))
             {
-                menuText1.setColor(Color::Yellow);
-                menuText2.setColor(Color::White);
-                mode = 1;
-                cout << "up" << endl;
-
+                if (menuIndex > 0) {
+                    menuIndex--;
+                }
             }
             else if (Keyboard::isKeyPressed(Keyboard::Down))
             {
-                menuText1.setColor(Color::White);
-                menuText2.setColor(Color::Yellow);
-                mode = 2;
-                cout << "down" << endl;
+                if (menuIndex < maxMenuIndex) {
+                    menuIndex++;
+                }
             }
-            else if (Keyboard::isKeyPressed(Keyboard::Space))
+            else if (Keyboard::isKeyPressed(Keyboard::Space) && !spacePressed)
             {
-                start = true;
+                spacePressed = true;
+                if (playerCountSelected) {
+                switch(menuIndex) {
+                    case 0:
+                        filePath = "../input.txt";
+                        break;
+                    case 1:
+                        filePath = "../input2.txt";
+                        break;
+                    case 2:
+                        filePath = "../input3.txt";
+                    default:
+                        break;
+                }
+                    start = true;
+                } else {
+                    menuText1.setString("Track 1");
+                    menuText2.setString("Track 2");
+                    menuText3.setString("Track 3");
+                    playerCountSelected = true;
+                    mode = menuIndex + 1;
+                    maxMenuIndex = 2;
+                    menuIndex = 0;
+                }
+            } else {
+                spacePressed = false;
             }
+            menuText1.setColor(Color::White);
+            menuText2.setColor(Color::White);
+            menuText3.setColor(Color::White);
+            switch(menuIndex) {
+                case 0:
+                    menuText1.setColor(Color::Yellow);
+                    break;
+                case 1:
+                    menuText2.setColor(Color::Yellow);
+                    break;
+                case 2:
+                    menuText3.setColor(Color::Yellow);
+                default:
+                    break;
+            }
+
             app.draw(sStart);
             app.draw(menuText1);
             app.draw(menuText2);
+            app.draw(menuText3);
             app.display();
         }
     }
@@ -81,11 +129,11 @@ int main()
     //RenderWindow app(VideoMode(640, 480), "Virtual Machines");
     //app.setFramerateLimit(60);
     Map map;
-    map.MapFunction();
+    //map.MapFunction(fileText);
     //the textures being called 
     Texture t1, t2, t3, t4, t5;
     //t1.loadFromFile("../track.png");
-    t1.loadFromImage(map.MapFunction());
+    t1.loadFromImage(map.MapFunction(filePath));
     t2.loadFromFile("../carkong.png");
     t3.loadFromFile("../coin.png");
     t4.loadFromFile("../luigiKart.png");
@@ -151,6 +199,18 @@ int main()
     laps2.setColor(Color::Yellow);
     /// laps ///
 
+    /// checkpoints ///
+    Text checkpoints("", mario_font);
+    checkpoints.setPosition(50,850);
+    checkpoints.setCharacterSize(100);
+    checkpoints.setColor(Color::Yellow);
+
+    Text checkpoints2("", mario_font);
+    checkpoints2.setPosition(50,850);
+    checkpoints2.setCharacterSize(100);
+    checkpoints2.setColor(Color::Yellow);
+    ///checkpoints///
+
     /// you win ///
     stringstream ssW;
     Text win("", mario_font);
@@ -160,7 +220,7 @@ int main()
     /// you win ///
 
     Tiles tiles;
-    tiles.tiles();
+    tiles.tiles(filePath);
 
     //number of cars
     const int N=mode;  
@@ -192,6 +252,12 @@ int main()
         coin[i].used = 0;
     }
 
+    //checkpoints
+    vector<int> checkpoints_x = tiles.six;
+    vector<int> checkpoints_y = tiles.six_y;
+    int cpSize = checkpoints_x.size();
+    vector<bool> cpCleared1(cpSize, false);
+    vector<bool> cpCleared2(cpSize, false);
 
     //the floats and ints for the cars speed,angle and their max speed, acceleration, decceleration and their turn speed
     ///float x=300, y=300;
@@ -279,7 +345,34 @@ int main()
       };
     };
     
-    
+    //checkpoints car 1
+    for (int i = 0; i<cpSize; i++)
+    {
+      if (checkpoints_x[i] <= car[0].x && car[0].x <= checkpoints_x[i] + 125 && checkpoints_y[i] <= car[0].y && car[0].y <= checkpoints_y[i] + 125)
+      {
+        if (!cpCleared1[i]) {
+            counter++;
+            cpCleared1[i] = true;
+        }
+      }
+      
+    };
+
+    for (int i = 0; i<2; i++)
+    {
+      if (spawn_x[i] <= car[0].x && car[0].x <= spawn_x[i] + 125 && spawn_y[i] <= car[0].y && car[0].y <= spawn_y[i] + 125)
+      {
+        if (counter == 4 && lapCounter != 3) {
+            counter = 0;
+            lapCounter++;
+            for (int i = 0; i<cpSize; i++)
+            {
+                cpCleared1[i] = false;
+            }
+        }
+      }
+    };
+    /*
     ///checkpoints car 1///
     if (car[0].y <= 2230 && counter == 0) // test
     {
@@ -302,6 +395,7 @@ int main()
         counter = 0;
         lapCounter += 1;
     }// test
+    */
 
 
     //the gravel x y coordinates
@@ -413,30 +507,33 @@ int main()
       };
     };
 
-    ///checkpoints car 2///
-    if (car[1].y <= 2230 && counter2 == 0) // test
+    //checkpoints car 2
+    for (int i = 0; i<cpSize; i++)
     {
-        counter2 += 1; 
-    }// test
-    else if (car[1].x <= 2230 && counter2 == 1) // test
+      if (checkpoints_x[i] <= car[1].x && car[1].x <= checkpoints_x[i] + 125 && checkpoints_y[i] <= car[1].y && car[1].y <= checkpoints_y[i] + 125)
+      {
+        if (!cpCleared2[i]) {
+            counter2++;
+            cpCleared2[i] = true;
+        }
+      }
+      
+    };
+
+    for (int i = 0; i<2; i++)
     {
-        counter2 += 1; 
-    }// test
-    else if (car[1].y >= 2230 && counter2 == 2) // test
-    {
-        counter2 += 1; 
-    }// test
-    else if (car[1].x >= 2230 && counter2 == 3) // test
-    {
-        counter2 += 1; 
-    }// test
-    else if (car[1].y <= 2230 && counter2 == 4 && lapCounter2 != 3) // test
-    {
-        counter2 = 0;
-        lapCounter2 += 1;
-        //cout << "counter: " << counter2 << "\n";
-    }// test
-     ///checkpoints car 2///
+      if (spawn_x[i] <= car[1].x && car[1].x <= spawn_x[i] + 125 && spawn_y[i] <= car[1].y && car[1].y <= spawn_y[i] + 125)
+      {
+        if (counter2 == 4 && lapCounter2 != 3) {
+            counter2 = 0;
+            lapCounter2++;
+            for (int i = 0; i<cpSize; i++)
+            {
+                cpCleared2[i] = false;
+            }
+        }
+      }
+    };
 
     //the gravel x y coordinates
 
@@ -573,6 +670,13 @@ int main()
     app.draw(laps);
     ///lap counter/////
 
+    //checkpoint counter//
+    ss1.str("");
+    ss1<<counter <<"/" << cpSize;
+    checkpoints.setString(ss1.str());
+    app.draw(checkpoints);
+    //checkpoint counter//
+
     ///win/////
     ssW.str("");
     if (lapCounter == totalLaps) {
@@ -672,6 +776,13 @@ int main()
     app.draw(laps);
     ///lap counter/////
 
+    //checkpoint counter//
+    ss2.str("");
+    ss2<<counter2 <<"/" << cpSize;
+    checkpoints2.setString(ss2.str());
+    app.draw(checkpoints2);
+    //checkpoint counter//
+
     ///win/////
     ssW.str("");
     if (lapCounter2 == totalLaps) {
@@ -695,67 +806,23 @@ int main()
     ///win/////
     //change track
     if ((stop1 && (mode == 1)) || (stop1 && stop2)) {
-        if (currentTrack == 1) {
-            stop1 = false;
-            stop2 = false;
-            t1.loadFromFile("../track2.png");
-            counter=0;
-            counter2=0;
-            maxSpeed = 12.0;
-            maxSpeed2 = 12.0;
+        app.setView(app.getDefaultView());
+        app.clear(Color::Black);
+        app.draw(sStart);
 
-            for(int i=0;i<N;i++)
-            {       
-                car[i].x=2250 + i*100;
-                car[i].y=2500;
-                car[i].speed=0;
-                //car[i].angle=0;
-            };
+        Text winText1("Player 1 time: " + nextLine +  firstTrackCompletion1 + nextLine + secondTrackCompletion1, mario_font);
+        winText1.setPosition(75,100);
+        winText1.setCharacterSize(50);
+        winText1.setColor(Color::Yellow);
 
-            X = 14;
+        app.draw(winText1);
+        if (mode == 2) {
+            Text winText2("Player 2 time:" + nextLine + firstTrackCompletion2 + nextLine + secondTrackCompletion2, mario_font);
+            winText2.setPosition(75,325);
+            winText2.setCharacterSize(50);
+            winText2.setColor(Color::Yellow);
 
-            coin_x = { 2850,2750,1700,1700,410,310,780,780,680,680,1350,1450,1550,1650 };
-            coin_y = { 1350,1350,260,360,1000,1000,2200,2300,2200,2300,3820,3820,3820,3820 };
-
-            for(int i=0;i<X;i++)
-            {
-                coin[i].x=coin_x[i];
-                coin[i].y=coin_y[i];
-                coin[i].used = 0;
-            };
-
-            lapCounter=0;
-            lapCounter2=0;
-            clock.restart();
-            s=0;
-            g=0;
-            m=0;
-            currentTrack = 2;
-
-
-        } else {
-            if (currentTrack == 2) {
-                app.setView(app.getDefaultView());
-                app.clear(Color::Black);
-                app.draw(sStart);
-
-                Text winText1("Player 1 times: " + nextLine +  firstTrackCompletion1 + nextLine + secondTrackCompletion1, mario_font);
-                winText1.setPosition(75,100);
-                winText1.setCharacterSize(50);
-                winText1.setColor(Color::Yellow);
-
-                app.draw(winText1);
-                if (mode == 2) {
-                    Text winText2("Player 2 times:" + nextLine + firstTrackCompletion2 + nextLine + secondTrackCompletion2, mario_font);
-                    winText2.setPosition(75,325);
-                    winText2.setCharacterSize(50);
-                    winText2.setColor(Color::Yellow);
-
-                    app.draw(winText2);
-                }
-                
-                
-            }
+            app.draw(winText2);
         }
     }
 
