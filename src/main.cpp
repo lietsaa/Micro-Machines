@@ -52,10 +52,15 @@ struct Image_struct {
                 image.setPixel(x, y, Color::Blue);
                 } else if (c == '4') {
                 image.setPixel(x, y, Color::Yellow);
-            } 
+                } else if (c == '5') {
+                image.setPixel(x, y, Color::Yellow);
+                } else if (c == '6') {
+                image.setPixel(x, y, Color::Yellow);
+                } else if (c == '7') {
+                image.setPixel(x, y, Color::Yellow);
+                } 
+            }
         }
-        }
-
         // Save the image to a file
         //image.saveToFile("road.png");
         return image;
@@ -75,6 +80,12 @@ struct Tiles {
     vector<int> three_y;
     vector<int> four;
     vector<int> four_y;
+    vector<int> five;
+    vector<int> five_y;
+    vector<int> six;
+    vector<int> six_y;
+    vector<int> seven;
+    vector<int> seven_y;
 
     ifstream input_file;
 
@@ -82,12 +93,11 @@ struct Tiles {
         input_file.open("../input.txt");
         int counter_x = 0;
         int counter_y = 0;
-        int counter = 0;
 
 
         char c;
         while (input_file.get(c)) {
-            counter += 1;
+
             // Check if the character is an 'x'
             if (c == 'x') {
             x.push_back(counter_x * 125);
@@ -123,6 +133,21 @@ struct Tiles {
             four_y.push_back(counter_y * 125);
             cout << "4" << endl;
             }
+            else if (c == '5') {
+            five.push_back(counter_x * 125);
+            five_y.push_back(counter_y * 125);
+            cout << "5" << endl;
+            }
+            else if (c == '6') {
+            six.push_back(counter_x * 125);
+            six_y.push_back(counter_y * 125);
+            cout << "6" << endl;
+            }
+            else if (c == '7') {
+            seven.push_back(counter_x * 125);
+            seven_y.push_back(counter_y * 125);
+            cout << "7" << endl;
+            }
             if (counter_x <= 23) {
                 counter_x += 1;
             } else {
@@ -130,48 +155,6 @@ struct Tiles {
                 counter_y += 1;
             }
         }
-
-        cout << "x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
-        
-        for (auto q: x)
-            cout << q << endl;
-        cout << endl;
-        for (auto q: zero)
-            cout << q << endl;
-        cout << endl;
-        for (auto q: one)
-            cout << q << endl;
-        cout << endl;
-        for (auto q: two)
-            cout << q << endl;
-        cout << endl;
-        for (auto q: three)
-            cout << q << endl;
-        cout << endl;
-        for (auto q: four)
-            cout << q << endl;
-
-        cout << "y!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
-        
-        for (auto q: x_y)
-            cout << q << endl;
-        cout << endl;
-        for (auto q: zero_y)
-            cout << q << endl;
-        cout << endl;
-        for (auto q: one_y)
-            cout << q << endl;
-        cout << endl;
-        for (auto q: two_y)
-            cout << q << endl;
-        cout << endl;
-        for (auto q: three_y)
-            cout << q << endl;
-        cout << endl;
-        for (auto q: four_y)
-            cout << q << endl;
-        
-        cout << counter << endl;
 
         // Close the document
         input_file.close();
@@ -333,27 +316,30 @@ int main()
     //number of cars
     const int N=mode;  
     Car car[N];
+
+    vector<int> spawn_x = tiles.seven;
+    vector<int> spawn_y = tiles.seven_y;
     
     //the cars speed and x,y coordinates
     for(int i=0;i<N;i++)
     {
-        car[i].x=2760 + i*96;
-        car[i].y=2336 + i*96;
+        car[i].x= spawn_x[i] + 62.5;
+        car[i].y= spawn_y[i] + 62.5;
         car[i].speed=7 + i;
     }
 
     //number of coins
-    int X=14;
+    int X= tiles.five.size();
     Coin coin[X];
 
     //the coins x,y coordinates
-    vector<int> coin_x = { 2170,2100,1800,1750,300,200,150,250,1500,1500,2550,2450,2350,2250 };
-    vector<int> coin_y = { 1350,1300,840,800,1000,1000,2300,2300,2200,2300,3727,3727,3727,3727 };
+    vector<int> coin_x = tiles.five;
+    vector<int> coin_y = tiles.five_y;
 
     for(int i=0;i<X;i++)
     {
-        coin[i].x=coin_x[i];
-        coin[i].y=coin_y[i];
+        coin[i].x=coin_x[i] + 62.5;
+        coin[i].y=coin_y[i] + 62.5;
         coin[i].used = 0;
     }
 
