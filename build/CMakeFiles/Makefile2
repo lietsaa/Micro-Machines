@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jussi/cpp3
+CMAKE_SOURCE_DIR = /home/jussi/cpp5
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jussi/cpp3/build
+CMAKE_BINARY_DIR = /home/jussi/cpp5/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -81,14 +81,14 @@ clean: CMakeFiles/Micro-Machines.dir/clean
 CMakeFiles/Micro-Machines.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Micro-Machines.dir/build.make CMakeFiles/Micro-Machines.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Micro-Machines.dir/build.make CMakeFiles/Micro-Machines.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jussi/cpp3/build/CMakeFiles --progress-num=1,2 "Built target Micro-Machines"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jussi/cpp5/build/CMakeFiles --progress-num=1,2 "Built target Micro-Machines"
 .PHONY : CMakeFiles/Micro-Machines.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Micro-Machines.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jussi/cpp3/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jussi/cpp5/build/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Micro-Machines.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jussi/cpp3/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jussi/cpp5/build/CMakeFiles 0
 .PHONY : CMakeFiles/Micro-Machines.dir/rule
 
 # Convenience name for target.

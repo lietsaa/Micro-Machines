@@ -362,7 +362,7 @@ int main()
     {
       if (spawn_x[i] <= car[0].x && car[0].x <= spawn_x[i] + 125 && spawn_y[i] <= car[0].y && car[0].y <= spawn_y[i] + 125)
       {
-        if (counter == 4 && lapCounter != 3) {
+        if (counter == cpSize && lapCounter != 3) {
             counter = 0;
             lapCounter++;
             for (int i = 0; i<cpSize; i++)
@@ -524,7 +524,7 @@ int main()
     {
       if (spawn_x[i] <= car[1].x && car[1].x <= spawn_x[i] + 125 && spawn_y[i] <= car[1].y && car[1].y <= spawn_y[i] + 125)
       {
-        if (counter2 == 4 && lapCounter2 != 3) {
+        if (counter2 == cpSize && lapCounter2 != 3) {
             counter2 = 0;
             lapCounter2++;
             for (int i = 0; i<cpSize; i++)

@@ -67,7 +67,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/jussi/cpp3/build"
+			"value" : "/home/jussi/cpp5/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -603,7 +603,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/jussi/cpp3"
+			"value" : "/home/jussi/cpp5"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1163,7 +1163,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/jussi/cpp3/build"
+			"value" : "/home/jussi/cpp5/build"
 		},
 		{
 			"name" : "Micro-Machines_IS_TOP_LEVEL",
@@ -1187,7 +1187,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/jussi/cpp3"
+			"value" : "/home/jussi/cpp5"
 		},
 		{
 			"name" : "SFML_DIR",
