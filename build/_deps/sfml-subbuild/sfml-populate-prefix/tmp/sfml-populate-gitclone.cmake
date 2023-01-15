@@ -1,15 +1,15 @@
 
-if(NOT "/home/jussi/cpp3/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitinfo.txt" IS_NEWER_THAN "/home/jussi/cpp3/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt")
-  message(STATUS "Avoiding repeated git clone, stamp file is up to date: '/home/jussi/cpp3/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt'")
+if(NOT "/home/jussi/cpp5/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitinfo.txt" IS_NEWER_THAN "/home/jussi/cpp5/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt")
+  message(STATUS "Avoiding repeated git clone, stamp file is up to date: '/home/jussi/cpp5/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt'")
   return()
 endif()
 
 execute_process(
-  COMMAND ${CMAKE_COMMAND} -E rm -rf "/home/jussi/cpp3/build/_deps/sfml-src"
+  COMMAND ${CMAKE_COMMAND} -E rm -rf "/home/jussi/cpp5/build/_deps/sfml-src"
   RESULT_VARIABLE error_code
   )
 if(error_code)
-  message(FATAL_ERROR "Failed to remove directory: '/home/jussi/cpp3/build/_deps/sfml-src'")
+  message(FATAL_ERROR "Failed to remove directory: '/home/jussi/cpp5/build/_deps/sfml-src'")
 endif()
 
 # try the clone 3 times in case there is an odd git clone issue
@@ -17,8 +17,8 @@ set(error_code 1)
 set(number_of_tries 0)
 while(error_code AND number_of_tries LESS 3)
   execute_process(
-    COMMAND "/usr/bin/git"  clone --no-checkout --config "advice.detachedHead=false" "https://github.com/SFML/SFML.git" "sfml-src"
-    WORKING_DIRECTORY "/home/jussi/cpp3/build/_deps"
+    COMMAND "/usr/bin/git"  clone --no-checkout --config "advice.detachedHead=false" "https://github.com/SFML/SFML" "sfml-src"
+    WORKING_DIRECTORY "/home/jussi/cpp5/build/_deps"
     RESULT_VARIABLE error_code
     )
   math(EXPR number_of_tries "${number_of_tries} + 1")
@@ -28,12 +28,12 @@ if(number_of_tries GREATER 1)
           ${number_of_tries} times.")
 endif()
 if(error_code)
-  message(FATAL_ERROR "Failed to clone repository: 'https://github.com/SFML/SFML.git'")
+  message(FATAL_ERROR "Failed to clone repository: 'https://github.com/SFML/SFML'")
 endif()
 
 execute_process(
   COMMAND "/usr/bin/git"  checkout 2.6.x --
-  WORKING_DIRECTORY "/home/jussi/cpp3/build/_deps/sfml-src"
+  WORKING_DIRECTORY "/home/jussi/cpp5/build/_deps/sfml-src"
   RESULT_VARIABLE error_code
   )
 if(error_code)
@@ -44,23 +44,23 @@ set(init_submodules TRUE)
 if(init_submodules)
   execute_process(
     COMMAND "/usr/bin/git"  submodule update --recursive --init 
-    WORKING_DIRECTORY "/home/jussi/cpp3/build/_deps/sfml-src"
+    WORKING_DIRECTORY "/home/jussi/cpp5/build/_deps/sfml-src"
     RESULT_VARIABLE error_code
     )
 endif()
 if(error_code)
-  message(FATAL_ERROR "Failed to update submodules in: '/home/jussi/cpp3/build/_deps/sfml-src'")
+  message(FATAL_ERROR "Failed to update submodules in: '/home/jussi/cpp5/build/_deps/sfml-src'")
 endif()
 
 # Complete success, update the script-last-run stamp file:
 #
 execute_process(
   COMMAND ${CMAKE_COMMAND} -E copy
-    "/home/jussi/cpp3/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitinfo.txt"
-    "/home/jussi/cpp3/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt"
+    "/home/jussi/cpp5/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitinfo.txt"
+    "/home/jussi/cpp5/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt"
   RESULT_VARIABLE error_code
   )
 if(error_code)
-  message(FATAL_ERROR "Failed to copy script-last-run stamp file: '/home/jussi/cpp3/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt'")
+  message(FATAL_ERROR "Failed to copy script-last-run stamp file: '/home/jussi/cpp5/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-gitclone-lastrun.txt'")
 endif()
 

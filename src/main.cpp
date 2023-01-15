@@ -18,6 +18,8 @@ int main()
     //sf::RenderWindow window(sf::VideoMode(640, 480), "Starting Screen");
     RenderWindow app(VideoMode(640, 480), "Virtual Machines");
     app.setFramerateLimit(60);
+    while (app.isOpen())
+    {
     app.clear(Color::Black);
     // Create the text
     Font mario_font;
@@ -292,7 +294,8 @@ int main()
 
     ///the main window that is opened up when you start the game///
     Event e;
-    while (app.isOpen()) 
+    bool newGame = false;
+    while (app.isOpen() && !newGame) 
     {     
         while (app.pollEvent(e)) 
         {
@@ -824,9 +827,30 @@ int main()
 
             app.draw(winText2);
         }
+      while (app.isOpen() && !newGame)
+    {
+        // Handle events
+        sf::Event event;
+        while (app.pollEvent(event) && !newGame)
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                // Close the window
+                app.close();
+            } else if (Keyboard::isKeyPressed(Keyboard::Space))
+            {
+              spacePressed = true;
+              newGame = true;
+            }
+
+        }
+      app.display();
+    }
+        
     }
 
     app.display();
+    }
     }
     
 
