@@ -15,7 +15,6 @@ int main()
 {
     // START MENU!!!!!!!!!!!!!!!!
     // Create the window
-    //sf::RenderWindow window(sf::VideoMode(640, 480), "Starting Screen");
     RenderWindow app(VideoMode(640, 480), "Virtual Machines");
     app.setFramerateLimit(60);
     while (app.isOpen())
@@ -43,6 +42,7 @@ int main()
     menuText3.setPosition(175,400);
     menuText3.setCharacterSize(50);
     menuText3.setColor(Color::White);
+    
     // Main loop
     bool playerCountSelected = false;
     bool start = false;
@@ -118,7 +118,6 @@ int main()
                 default:
                     break;
             }
-
             app.draw(sStart);
             app.draw(menuText1);
             app.draw(menuText2);
@@ -127,14 +126,10 @@ int main()
         }
     }
             //END MENU!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
     //setting up the window and the framerate
-    //RenderWindow app(VideoMode(640, 480), "Virtual Machines");
-    //app.setFramerateLimit(60);
     Map map;
-    //map.MapFunction(fileText);
-    //the textures being called 
     Texture t1, t2, t3, t4, t5;
-    //t1.loadFromFile("../track.png");
     t1.loadFromImage(map.MapFunction(filePath));
     t2.loadFromFile("../carkong.png");
     t3.loadFromFile("../coin.png");
@@ -146,7 +141,6 @@ int main()
     t4.setSmooth(true);
     t5.setSmooth(true);
 
-
     //naming the background image and the car
     Sprite sBackground(t1), sCar(t2), sCoin(t3), sCar2(t4), sGrass(t5);
     sBackground.scale(3,3);
@@ -155,15 +149,12 @@ int main()
 
     //setting up the split screen and their names
     View view1, view2; //split
-    //view1.setViewport(FloatRect(0, 0, 0.5f, 1.0f)); //split
-    //view1.setSize(1000/2, 480); //split
     if (mode == 2) {
     view1.setViewport(FloatRect(0, 0, 0.5f, 1.0f)); //split
     view2.setViewport(FloatRect(0.5f, 0, 0.5f, 1.0f)); //split
     } else {
         view1.setViewport(FloatRect(0, 0, 1.0f, 1.0f)); //split
     }
-        //view2.setSize(1000/2, 480); //split
 
     //////clock///////
     srand(time(NULL));
@@ -175,9 +166,6 @@ int main()
     int m=0;
     bool stop1 = false;
     bool stop2 = false;
- 
-    //Font mario_font;
-    //mario_font.loadFromFile("/home/jussi/cpp/src/SuperMario256.ttf");
  
     Text text("", mario_font);
     text.setPosition(7,0);
@@ -262,7 +250,6 @@ int main()
     vector<bool> cpCleared2(cpSize, false);
 
     //the floats and ints for the cars speed,angle and their max speed, acceleration, decceleration and their turn speed
-    ///float x=300, y=300;
     float speed = 0, angle = 0;
     float speed2 = 0, angle2 = 0;
     
@@ -332,7 +319,6 @@ int main()
 	if (car[0].x>320) offsetX = car[0].x-320;
     if (car[0].y>240) offsetY = car[0].y-240;
     
-    
     //coins car 1
     for (int i = 0; i < X; i++)
     {
@@ -375,31 +361,6 @@ int main()
         }
       }
     };
-    /*
-    ///checkpoints car 1///
-    if (car[0].y <= 2230 && counter == 0) // test
-    {
-        counter += 1; 
-    }// test
-    else if (car[0].x <= 2230 && counter == 1) // test
-    {
-        counter += 1; 
-    }// test
-    else if (car[0].y >= 2230 && counter == 2) // test
-    {
-        counter += 1; 
-    }// test
-    else if (car[0].x >= 2230 && counter == 3) // test
-    {
-        counter += 1; 
-    }// test
-    else if (car[0].y <= 2230 && counter == 4 && lapCounter != 3) // test
-    {
-        counter = 0;
-        lapCounter += 1;
-    }// test
-    */
-
 
     //the gravel x y coordinates
     vector<int> gravel_x = tiles.zero;
@@ -447,7 +408,6 @@ int main()
       
     };
 
-
     //the speed x y coordinates
     vector<int> speed_x = tiles.three;
     vector<int> speed_y = tiles.three_y;
@@ -465,7 +425,6 @@ int main()
 
     if (wall == 0) car[0].move();
 
-    
 	////Car 2 Movement////
 	bool Up2=0, Right2=0, Down2=0, Left2=0;
     if (Keyboard::isKeyPressed(Keyboard::Up)) Up2=1;
@@ -551,7 +510,6 @@ int main()
 
     //the mud x y coordinates
 
-
     for (int i = 0; i<R; i++)
     {
       if (mud_x[i] <= car[1].x && car[1].x <= mud_x[i] + 125 && mud_y[i] <= car[1].y && car[1].y <= mud_y[i] + 125) 
@@ -573,29 +531,19 @@ int main()
       
     };
 
-
     //the speed x y coordinates
-
 
     for (int i = 0; i<S; i++)
     {
       if (speed_x[i] <= car[1].x && car[1].x <= speed_x[i] + 125 && speed_y[i] <= car[1].y && car[1].y <= speed_y[i] + 125) 
       {
-        car[1].speed = car[1].speed*2;
-        
+        car[1].speed = car[1].speed*2;    
       }
     };
 
     if (wall1 == 0) car[1].move();
     
-    /*
-    for(int i=0;i<N;i++)
-    {
-        car[i].move();
-        //cout << car[0].x << "x" << car[0].y << "y" << "\n";
-    } 
-    */
-	
+   
     ////drawing the background and cars///////
     app.clear(Color::Green);
     
@@ -656,8 +604,6 @@ int main()
         ss<<":"<<s;
     }
  
-        //ss<<g<<":"<<m<<":"<<s;
- 
     text.setString(ss.str());
     stringText1 = ss.str();
  
@@ -683,7 +629,6 @@ int main()
     ///win/////
     ssW.str("");
     if (lapCounter == totalLaps) {
-    //ssW<<"win"<< "\n" << m << ":" <<s;
     const string lastString = stringText1;
     ssW<<"win"<< "\n" << lastString;
     win.setString(ssW.str());
@@ -763,8 +708,6 @@ int main()
         ss<<":"<<s;
     }
  
-        //ss<<g<<":"<<m<<":"<<s;
- 
     text.setString(ss.str());
     stringText2 = ss.str();
  
@@ -791,7 +734,6 @@ int main()
     if (lapCounter2 == totalLaps) {
       const string lastString2 = stringText2;
       ssW<<"win"<< "\n" << lastString2;
-      //ssW<<"win"<< "\n" << m << ":" <<s;
     
       win.setString(ssW.str());
       app.draw(win);
@@ -803,7 +745,6 @@ int main()
 
       stop2 = true;
     }
-
     }
     
     ///win/////
@@ -827,6 +768,8 @@ int main()
 
             app.draw(winText2);
         }
+    app.display();
+
       while (app.isOpen() && !newGame)
     {
         // Handle events
@@ -842,9 +785,7 @@ int main()
               spacePressed = true;
               newGame = true;
             }
-
         }
-      app.display();
     }
         
     }
@@ -852,7 +793,6 @@ int main()
     app.display();
     }
     }
-    
 
     return 0;
 }
