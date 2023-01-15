@@ -1,3 +1,0 @@
-/home/jussi/cpp5/build/CMakeFiles/Micro-Machines.dir
-/home/jussi/cpp5/build/CMakeFiles/edit_cache.dir
-/home/jussi/cpp5/build/CMakeFiles/rebuild_cache.dir
