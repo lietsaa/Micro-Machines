@@ -804,7 +804,7 @@ int main()
     }
     
     ///win/////
-    //change track
+    //end track
     if ((stop1 && (mode == 1)) || (stop1 && stop2)) {
         app.setView(app.getDefaultView());
         app.clear(Color::Black);
